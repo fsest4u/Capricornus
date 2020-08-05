@@ -8,6 +8,22 @@
 
 import Foundation
 
+let DEBUG_MODE = true
+
+let API_PATH_NAVER_CSS = "https://naveropenapi.apigw.ntruss.com/voice/v1/tts"
+
+let PARAM_NAME_CONTENT_TYPE = "Content-Type"
+let PARAM_NAME_API_ID = "X-NCP-APIGW-API-KEY-ID"
+let PARAM_NAME_API_KEY = "X-NCP-APIGW-API-KEY"
+
+let PARAM_NAME_SPEAKER = "speaker"
+let PARAM_NAME_SPEED = "speed"
+let PARAM_NAME_TEXT = "text"
+
+let PARAM_VALUE_CONTENT_TYPE = "application/x-www-form-urlencoded"
+let PARAM_VALUE_CLIENT_ID = "awolaeoidn"
+let PARAM_VALUE_CLIENT_SECRET = "V0ey9lXGi6qPTyJ9weY9w2afbMmTohsKBYud16oJ"
+
 
 let arrPlatform = ["Naver", "Kakao", "AWS", "Google", "Microsoft", "IBM"]
 
@@ -25,6 +41,7 @@ enum PlatformType: Int {
 
 var platformType = PlatformType.NAVER
 
+let arrTitle = ["한국어, 정상속도", "한국어, 정상속도", "영어, 정상속도", "영어, 정상속도", "중국어, 정상속도"]
 
 let arrContent = [
     "이상 그들을 되는 작고 사라지지 그리하였는가? 속잎나고, 그들은 싶이 얼마나 있는 것이다. 눈이 소리다.이것은 귀는 거선의 그들은 교향악이다."
