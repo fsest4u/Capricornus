@@ -33,7 +33,7 @@ class APIService {
         }
     }
     
-    static func request(index: Int,request: URLRequest) -> Observable<(Int,Data)> {
+    static func request(index: Int, request: URLRequest) -> Observable<(Int,Data)> {
         
         return Observable.create { observer -> Disposable in
             

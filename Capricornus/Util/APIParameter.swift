@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 
 class APIParameter {
     
@@ -15,26 +16,37 @@ class APIParameter {
                 
         var queryItems = [NSURLQueryItem]()
         
-        queryItems.append(NSURLQueryItem(name: PARAM_NAME_CONTENT_TYPE, value:  PARAM_VALUE_CONTENT_TYPE))
-        queryItems.append(NSURLQueryItem(name: PARAM_NAME_API_ID, value:  PARAM_VALUE_CLIENT_ID))
-        queryItems.append(NSURLQueryItem(name: PARAM_NAME_API_KEY, value:  PARAM_VALUE_CLIENT_SECRET))
+//        queryItems.append(NSURLQueryItem(name: PARAM_NAME_CONTENT_TYPE, value:  PARAM_VALUE_CONTENT_TYPE))
+//        queryItems.append(NSURLQueryItem(name: PARAM_NAME_API_ID, value:  PARAM_VALUE_CLIENT_ID))
+//        queryItems.append(NSURLQueryItem(name: PARAM_NAME_API_KEY, value:  PARAM_VALUE_CLIENT_SECRET))
         
         return queryItems
         
     }
 
-    static func getHeaderItem() -> Dictionary<String, String> {
+    static func getNaverHeaderItem() -> Dictionary<String, String> {
                 
         var header: [String: String] = Dictionary<String, String>()
         
-        header[PARAM_NAME_CONTENT_TYPE] = PARAM_VALUE_CONTENT_TYPE
-        header[PARAM_NAME_API_ID] = PARAM_VALUE_CLIENT_ID
-        header[PARAM_NAME_API_KEY] = PARAM_VALUE_CLIENT_SECRET
+        header[PARAM_NAME_NAVER_CONTENT_TYPE] = PARAM_VALUE_NAVER_CONTENT_TYPE
+        header[PARAM_NAME_NAVER_API_ID] = PARAM_VALUE_NAVER_CLIENT_ID
+        header[PARAM_NAME_NAVER_API_KEY] = PARAM_VALUE_NAVER_CLIENT_SECRET
           
         return header
         
     }
     
+    static func getKakaoHeaderItem() -> Dictionary<String, String> {
+                
+        var header: [String: String] = Dictionary<String, String>()
+        
+        header[PARAM_NAME_KAKAO_CONTENT_TYPE] = PARAM_VALUE_KAKAO_CONTENT_TYPE
+        header[PARAM_NAME_KAKAO_AUTHORIZATION] = PARAM_VALUE_KAKAO_AUTHORIZATION
+          
+        return header
+        
+    }
+
     static func postNaverCSS(content: String, speaker: String, speed: Int) -> Dictionary<String, Any> {
         
         var param : [String : Any] = Dictionary<String, Any>()
@@ -44,9 +56,9 @@ class APIParameter {
         for i in 0..<count {
             param[queryItems[i].name] = queryItems[i].value
         }
-        param[PARAM_NAME_TEXT] = content
-        param[PARAM_NAME_SPEAKER] = speaker
-        param[PARAM_NAME_SPEED] = speed
+        param[PARAM_NAME_NAVER_TEXT] = content
+        param[PARAM_NAME_NAVER_SPEAKER] = speaker
+        param[PARAM_NAME_NAVER_SPEED] = speed
         
         return param
     }
@@ -60,14 +72,58 @@ class APIParameter {
         for i in 0..<count {
             param[queryItems[i].name] = queryItems[i].value
         }
-        param[PARAM_NAME_TEXT] = content
-        param[PARAM_NAME_SPEAKER] = speaker
-        param[PARAM_NAME_SPEED] = speed
-        param[PARAM_NAME_VOLUME] = volume
-        param[PARAM_NAME_PITCH] = pitch
-        param[PARAM_NAME_EMOTION] = emotion
-        param[PARAM_NAME_FORMAT] = format
+        param[PARAM_NAME_NAVER_TEXT] = content
+        param[PARAM_NAME_NAVER_SPEAKER] = speaker
+        param[PARAM_NAME_NAVER_SPEED] = speed
+        param[PARAM_NAME_NAVER_VOLUME] = volume
+        param[PARAM_NAME_NAVER_PITCH] = pitch
+        param[PARAM_NAME_NAVER_EMOTION] = emotion
+        param[PARAM_NAME_NAVER_FORMAT] = format
 
         return param
     }
+    
+//    static func postKakao(content: String) -> Dictionary<String, Any> {
+//
+//        var param : [String : Any] = Dictionary<String, Any>()
+//
+//        let queryItems = getBaseQueryItem()
+//        let count = queryItems.count
+//        for i in 0..<count {
+//            param[queryItems[i].name] = queryItems[i].value
+//        }
+//        param[""] = content
+//
+//        return param
+//    }
+    
+    static func postKakao(content: String, header: HTTPHeaders) -> URLRequest? {
+        
+        var queryItems = getBaseQueryItem()
+
+        guard let urlComps = NSURLComponents(string: API_PATH_KAKAO_HOST + API_PATH_KAKAO_SYN) else {
+            return nil
+        }
+        
+        urlComps.queryItems = queryItems as [URLQueryItem]
+//        urlComps.replacingPlus()
+        
+        guard let url = urlComps.url else{
+            return nil
+            
+        }
+        var request: URLRequest?
+        do {
+            request = try URLRequest(url: url, method: .post, headers: header)
+//            request?.httpMethod = "POST"
+            request?.httpBody = content.data(using: .utf8)
+        }
+        catch {
+            print("Error postKakao URLRequest")
+        }
+
+        
+        return request
+    }
+    
 }
