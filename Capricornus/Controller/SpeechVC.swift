@@ -325,7 +325,7 @@ class SpeechVC: UIViewController, AVAudioPlayerDelegate {
     func downloadKakao(content: String) {
         
         print("downloadKakao content: \(content)")
-        let header = HTTPHeaders()//APIParameter.getKakaoHeaderItem()
+        let header = APIParameter.getKakaoHeaderItem()
         guard let url = APIParameter.postKakao(content: content, header: header) else{
             return
         }
