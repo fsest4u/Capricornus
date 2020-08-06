@@ -15,11 +15,6 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-    @IBAction func onClick_BtnMove(_ sender: Any) {
-        
-
-    }
-    
 }
 
 
@@ -46,7 +41,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let uvc = storyboard.instantiateViewController(withIdentifier: "SpeechVC") as? SpeechVC {
             uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
-            platformType = PlatformType(rawValue: index) ?? PlatformType.NAVER
+            platformType = PlatformType(rawValue: index) ?? PlatformType.NAVER_CSS
             self.navigationController?.pushViewController(uvc, animated: true)
         }
  

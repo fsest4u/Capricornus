@@ -50,7 +50,6 @@ class MP3ListVC: UIViewController, AVAudioPlayerDelegate {
         let fileURL = URL(fileURLWithPath: path)
         
         do {
-            print("debugPlaySample: \(fileURL.path)")
             audioPlayer = try AVAudioPlayer(contentsOf: fileURL)
             audioPlayer?.delegate = self
             audioPlayer?.prepareToPlay()
@@ -78,12 +77,11 @@ class MP3ListVC: UIViewController, AVAudioPlayerDelegate {
         }
     }
     
-    func playMP3(filename: String) {
+    func playMP3(dirURL: URL, filename: String) {
         
-        let fileURL = (dirURL?.appendingPathComponent(filename))!
+        let fileURL = (dirURL.appendingPathComponent(filename))
 
         do {
-            print("playMP3: \(fileURL.path)")
             audioPlayer = try AVAudioPlayer(contentsOf: fileURL)
             audioPlayer?.delegate = self
             audioPlayer?.prepareToPlay()
@@ -93,6 +91,19 @@ class MP3ListVC: UIViewController, AVAudioPlayerDelegate {
         catch {
             print("Error prepare to play...")
         }
+    }
+    
+    func deleteMP3(dirURL: URL, filename: String) {
+        
+        let fileURL = (dirURL.appendingPathComponent(filename))
+        let fileManager = FileManager.default
+        do {
+            try fileManager.removeItem(at: fileURL)
+        }
+        catch {
+            print("Error delete file \(filename)")
+        }
+        
     }
 
 }
@@ -115,12 +126,28 @@ extension MP3ListVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let curCell = tableView.cellForRow(at: indexPath) as! MP3ListCell
-        let filename = curCell.labelFileName.text
+        let filename = curCell.labelFileName.text ?? ""
         
 //        debugPlaySample()
 //        debugCheckFileSize(filename: filename)
-        playMP3(filename: filename!)
+        playMP3(dirURL: dirURL!, filename: filename)
         
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+
+            let curCell = tableView.cellForRow(at: indexPath) as! MP3ListCell
+            let filename = curCell.labelFileName.text ?? ""
+            deleteMP3(dirURL: dirURL!, filename: filename)
+            
+            arrFile?.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
     }
     
     
