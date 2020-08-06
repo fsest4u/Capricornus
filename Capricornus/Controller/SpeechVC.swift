@@ -10,6 +10,8 @@ import UIKit
 import AVFoundation
 import RxSwift
 import SwiftyJSON
+import PopupDialog
+import Alamofire
 
 class SpeechVC: UIViewController, AVAudioPlayerDelegate {
     
@@ -129,6 +131,14 @@ class SpeechVC: UIViewController, AVAudioPlayerDelegate {
         }
     }
     
+    func displayPopup(title: String, message: String) {
+        
+        let popup = PopupDialog(title: title, message: message)
+        let btnOK = DefaultButton(title: "OK", action: nil)
+        
+        self.present(popup, animated: true, completion: nil)
+    }
+    
     func doNaverCSS() {
         
         fileURL = getFileURL()
@@ -215,7 +225,7 @@ class SpeechVC: UIViewController, AVAudioPlayerDelegate {
                 print("data : \(String(decoding: data, as: UTF8.self))")
                 
                 let dataJson = JSON(data)
-                if dataJson["errorCode"].isEmpty {
+                if dataJson["error"].isEmpty {
                     // 입력데이타를 파일로 저장
                     do {
                         try data.write(to: (self?.fileURL)!)
@@ -236,6 +246,9 @@ class SpeechVC: UIViewController, AVAudioPlayerDelegate {
                 }
                 else {
                     // popup
+                    let error = dataJson["error"]
+                    let message = error["message"].string ?? "에러발생"
+                    self?.displayPopup(title: "Error", message: message)
                 }
                 
                 },onError: {
@@ -272,7 +285,7 @@ class SpeechVC: UIViewController, AVAudioPlayerDelegate {
                 print("data : \(String(decoding: data, as: UTF8.self))")
                 
                 let dataJson = JSON(data)
-                if dataJson["errorCode"].isEmpty {
+                if dataJson["error"].isEmpty {
                     // 입력데이타를 파일로 저장
                     do {
                         try data.write(to: (self?.fileURL)!)
@@ -293,6 +306,9 @@ class SpeechVC: UIViewController, AVAudioPlayerDelegate {
                 }
                 else {
                     // popup
+                    let error = dataJson["error"]
+                    let message = error["message"].string ?? "에러발생"
+                    self?.displayPopup(title: "Error", message: message)
                 }
                 
                 },onError: {
@@ -309,7 +325,7 @@ class SpeechVC: UIViewController, AVAudioPlayerDelegate {
     func downloadKakao(content: String) {
         
         print("downloadKakao content: \(content)")
-        let header = APIParameter.getKakaoHeaderItem()
+        let header = HTTPHeaders()//APIParameter.getKakaoHeaderItem()
         guard let url = APIParameter.postKakao(content: content, header: header) else{
             return
         }
@@ -323,7 +339,9 @@ class SpeechVC: UIViewController, AVAudioPlayerDelegate {
                 print("data : \(String(decoding: data, as: UTF8.self))")
                 
                 let dataJson = JSON(data)
-                if dataJson["errorCode"].isEmpty {
+                let message = dataJson["msg"].string
+
+                if message?.isEmpty ?? true {
                     // 입력데이타를 파일로 저장
                     do {
                         try data.write(to: (self?.fileURL)!)
@@ -344,6 +362,9 @@ class SpeechVC: UIViewController, AVAudioPlayerDelegate {
                 }
                 else {
                     // popup
+                    let message = dataJson["msg"].string ?? "에러발생"
+                    self?.displayPopup(title: "Error", message: message)
+                    
                 }
                 
                 },onError: {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PopupDialog
 
 class ViewController: UIViewController {
 
@@ -14,6 +15,15 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
+    
+    func displayPopup(title: String, message: String) {
+        
+        let popup = PopupDialog(title: title, message: message)
+        let btnOK = DefaultButton(title: "OK", action: nil)
+        
+        self.present(popup, animated: true, completion: nil)
+    }
+    
 
 }
 
@@ -38,6 +48,11 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let index = indexPath.row
+        if index >= 3 {
+            displayPopup(title: "안내", message: "준비 중입니다.")
+            return
+        }
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let uvc = storyboard.instantiateViewController(withIdentifier: "SpeechVC") as? SpeechVC {
             uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical

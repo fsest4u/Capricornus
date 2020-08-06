@@ -5,6 +5,8 @@ target 'Capricornus' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
+  # Pods for Capricornus
+
   # 통신
   pod 'Alamofire', '~> 4.7'
 
@@ -15,7 +17,8 @@ target 'Capricornus' do
   # JSON
   pod 'SwiftyJSON', '~> 4.0'
 
-  # Pods for Capricornus
+  # Popup
+  pod 'PopupDialog', '~> 1.1'
 
   target 'CapricornusTests' do
     inherit! :search_paths

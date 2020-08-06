@@ -129,17 +129,17 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SpeechCell" id="fTM-GB-ADy" customClass="SpeechCell" customModule="Capricornus" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="140"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="190"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fTM-GB-ADy" id="4LH-x1-aLt">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="140"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="190"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6gr-zU-NVe">
-                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="140"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="190"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="npr-xQ-aQD">
-                                                            <rect key="frame" x="0.0" y="0.0" width="414" height="140"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="414" height="190"/>
                                                             <subviews>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="83X-Dz-Fym">
                                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
@@ -160,10 +160,10 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zfb-F4-HmE">
-                                                                    <rect key="frame" x="0.0" y="40" width="414" height="100"/>
+                                                                    <rect key="frame" x="0.0" y="40" width="414" height="150"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JSq-2j-zA6">
-                                                                            <rect key="frame" x="16" y="40.5" width="382" height="19.5"/>
+                                                                            <rect key="frame" x="16" y="65.5" width="382" height="19.5"/>
                                                                             <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="16"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
@@ -173,14 +173,14 @@
                                                                     <constraints>
                                                                         <constraint firstItem="JSq-2j-zA6" firstAttribute="leading" secondItem="zfb-F4-HmE" secondAttribute="leading" constant="16" id="0li-b2-Swj"/>
                                                                         <constraint firstItem="JSq-2j-zA6" firstAttribute="centerY" secondItem="zfb-F4-HmE" secondAttribute="centerY" id="DSC-yF-TCY"/>
-                                                                        <constraint firstAttribute="height" constant="100" id="kei-yf-b03"/>
+                                                                        <constraint firstAttribute="height" constant="150" id="kei-yf-b03"/>
                                                                         <constraint firstAttribute="trailing" secondItem="JSq-2j-zA6" secondAttribute="trailing" constant="16" id="zB2-Q8-tRl"/>
                                                                     </constraints>
                                                                 </view>
                                                             </subviews>
                                                         </stackView>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NQR-YW-CQf">
-                                                            <rect key="frame" x="0.0" y="139.5" width="414" height="0.5"/>
+                                                            <rect key="frame" x="0.0" y="189.5" width="414" height="0.5"/>
                                                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="0.5" id="zD9-XD-eIk"/>
