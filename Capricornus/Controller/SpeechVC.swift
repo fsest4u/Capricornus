@@ -13,12 +13,15 @@ import SwiftyJSON
 
 class SpeechVC: UIViewController, AVAudioPlayerDelegate {
     
-    var index = 0
+    var indexRow = 0
     
     var fileURL: URL?
     
     var audioPlayer: AVAudioPlayer?
 
+    var arrTitle: [String] = []
+    var arrSpeaker: [String] = []
+    var arrContent: [String] = []
     
     var disposebag = DisposeBag()
     
@@ -26,7 +29,8 @@ class SpeechVC: UIViewController, AVAudioPlayerDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        print("SpeechVC index : \(index)")
+        print("SpeechVC platformType : \(platformType)")
+        initArrayData()
     }
     
 
@@ -40,6 +44,21 @@ class SpeechVC: UIViewController, AVAudioPlayerDelegate {
     }
     */
 
+    func initArrayData() {
+        
+        switch platformType {
+            case PlatformType.NAVER_CSS:
+                arrTitle = arrNaverCSSTitle
+                arrSpeaker = arrNaverCSSSpeaker
+                arrContent = arrNaverCSSContent
+            case PlatformType.NAVER_CPV:
+                arrTitle = arrNaverCPVTitle
+                arrSpeaker = arrNaverCPVSpeaker
+                arrContent = arrNaverCPVContent
+            default:
+                break
+        }
+    }
 
     
     func getDirURL() -> URL {
@@ -64,7 +83,7 @@ class SpeechVC: UIViewController, AVAudioPlayerDelegate {
 
         let dirURL = getDirURL()
 //        let filename = Util.getCurrentDate() + ".mp3"
-        let filename = arrPlatform[platformType.rawValue] + "_" + arrSpeaker[index] + ".mp3"
+        let filename = arrPlatform[platformType.rawValue] + "_" + arrSpeaker[indexRow] + ".mp3"
         let fileURL = dirURL.appendingPathComponent(filename)
         
         return fileURL
@@ -112,20 +131,32 @@ class SpeechVC: UIViewController, AVAudioPlayerDelegate {
             playMP3(fileURL: fileURL!)
         }
         else {
-            let speed = "0"
-            let speaker = arrSpeaker[index]
-            let content = arrContent[index]
-            downloadNaverCSS(speaker: speaker, speed: speed, content: content)
-//            moveMP3List()
+            let speaker = arrSpeaker[indexRow]
+            let content = arrContent[indexRow]
+            downloadNaverCSS(content: content, speaker: speaker)
         }
 
     }
+    
+    func doNaverCPV() {
+        
+        fileURL = getFileURL()
+        let fileManager = FileManager.default
+        if fileManager.fileExists(atPath: fileURL?.path ?? "") {
+            playMP3(fileURL: fileURL!)
+        }
+        else {
+            let speaker = arrSpeaker[indexRow]
+            let content = arrContent[indexRow]
+            downloadNaverCPV(content: content, speaker: speaker)
+        }
+    }
 
-    func downloadNaverCSS(speaker: String, speed: String, content: String) {
+    func downloadNaverCSS(content: String, speaker: String, speed: Int = 0) {
        
         print("downloadNaverCSS content: \(content)")
         let header = APIParameter.getHeaderItem()
-        let param = APIParameter.postNaverCSS(speaker: speaker, speed: speed, content: content)
+        let param = APIParameter.postNaverCSS(content: content, speaker: speaker, speed: speed)
         
         guard let urlComps = NSURLComponents(string: API_PATH_NAVER_CSS) else{
             return
@@ -172,12 +203,68 @@ class SpeechVC: UIViewController, AVAudioPlayerDelegate {
 
                     
             },onCompleted: {
-                //                LoadingHUD.hide()
+//                LoadingHUD.hide()
 
 
             }).disposed(by: disposebag)
     }
     
+    func downloadNaverCPV(content: String, speaker: String, speed: Int = 0, volume: Int = 0, pitch: Int = 0, emotion: Int = 0, format: String = "mp3") {
+           
+            print("downloadNaverCSS content: \(content)")
+            let header = APIParameter.getHeaderItem()
+            let param = APIParameter.postNaverCPV(content: content, speaker: speaker, speed: speed, volume: volume, pitch: pitch, emotion: emotion, format: format)
+            
+            guard let urlComps = NSURLComponents(string: API_PATH_NAVER_CPV) else{
+                return
+            }
+            
+            guard let url = urlComps.url else{
+                return
+            }
+            
+    //        LoadingHUD.show()
+            APIService.request(url: url, method: .post, param: param, header: header)
+    //            .filter{AppServiceErrorCode.checkData(vc: self, data: $0)}
+                .subscribe(onNext: {
+                    [weak self] data in
+
+                    print("data : \(String(decoding: data, as: UTF8.self))")
+
+                    let dataJson = JSON(data)
+                    if dataJson["errorCode"].isEmpty {
+                        // 입력데이타를 파일로 저장
+                        do {
+                            try data.write(to: (self?.fileURL)!)
+
+                        } catch {
+                            print("Something went wrong!")
+                        }
+                     
+                        if DEBUG_MODE {
+                            // move to vc of mp3 list
+                            self?.moveMP3List()
+                        }
+                        else {
+                            // play mp3
+                            self?.playMP3(fileURL: (self?.fileURL)!)
+                        }
+                        
+                    }
+                    else {
+                        // popup
+                    }
+                    
+                    },onError: {
+                        error in
+
+                        
+                },onCompleted: {
+    //                LoadingHUD.hide()
+
+
+                }).disposed(by: disposebag)
+        }
 
 
 }
@@ -200,7 +287,7 @@ extension SpeechVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        index = indexPath.row
+        indexRow = indexPath.row
         
         switch platformType {
             case PlatformType.NAVER_CSS:
@@ -208,7 +295,8 @@ extension SpeechVC: UITableViewDelegate, UITableViewDataSource {
                 doNaverCSS()
             
             case PlatformType.NAVER_CPV:
-                print("type NAVER_CPV")
+            
+                doNaverCPV()
 
             case PlatformType.KAKAO:
                 print("type KAKAO")

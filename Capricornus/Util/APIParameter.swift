@@ -35,7 +35,7 @@ class APIParameter {
         
     }
     
-    static func postNaverCSS(speaker: String, speed: String, content: String) -> Dictionary<String, Any> {
+    static func postNaverCSS(content: String, speaker: String, speed: Int) -> Dictionary<String, Any> {
         
         var param : [String : Any] = Dictionary<String, Any>()
         
@@ -44,12 +44,30 @@ class APIParameter {
         for i in 0..<count {
             param[queryItems[i].name] = queryItems[i].value
         }
+        param[PARAM_NAME_TEXT] = content
         param[PARAM_NAME_SPEAKER] = speaker
         param[PARAM_NAME_SPEED] = speed
-        param[PARAM_NAME_TEXT] = content
         
         return param
     }
     
-    
+    static func postNaverCPV(content: String, speaker: String, speed: Int, volume: Int, pitch: Int, emotion: Int, format: String) -> Dictionary<String, Any> {
+        
+        var param : [String : Any] = Dictionary<String, Any>()
+        
+        let queryItems = getBaseQueryItem()
+        let count = queryItems.count
+        for i in 0..<count {
+            param[queryItems[i].name] = queryItems[i].value
+        }
+        param[PARAM_NAME_TEXT] = content
+        param[PARAM_NAME_SPEAKER] = speaker
+        param[PARAM_NAME_SPEED] = speed
+        param[PARAM_NAME_VOLUME] = volume
+        param[PARAM_NAME_PITCH] = pitch
+        param[PARAM_NAME_EMOTION] = emotion
+        param[PARAM_NAME_FORMAT] = format
+
+        return param
+    }
 }
