@@ -10,7 +10,6 @@ import UIKit
 import AVFoundation
 import RxSwift
 import SwiftyJSON
-import PopupDialog
 import Alamofire
 
 class SpeechVC: UIViewController, AVAudioPlayerDelegate {
@@ -19,11 +18,13 @@ class SpeechVC: UIViewController, AVAudioPlayerDelegate {
     
     var fileURL: URL?
     
-    var audioPlayer: AVAudioPlayer?
     
     var arrTitle: [String] = []
     var arrSpeaker: [String] = []
     var arrContent: [String] = []
+    
+    var naver = Naver()
+    var kakao = Kakao()
     
     var disposeBag = DisposeBag()
     
@@ -50,16 +51,19 @@ class SpeechVC: UIViewController, AVAudioPlayerDelegate {
         
         switch platformType {
             case PlatformType.NAVER_CSS:
+                naver.uvc = self
                 arrTitle = arrNaverCSSTitle
                 arrSpeaker = arrNaverCSSSpeaker
                 arrContent = arrNaverCSSContent
             
             case PlatformType.NAVER_CPV:
+                naver.uvc = self
                 arrTitle = arrNaverCPVTitle
                 arrSpeaker = arrNaverCPVSpeaker
                 arrContent = arrNaverCPVContent
             
             case PlatformType.KAKAO:
+                kakao.uvc = self
                 arrTitle = arrKakaoTitle
                 arrSpeaker = arrKakaoTitle
                 arrContent = arrKakaoContent
@@ -67,314 +71,7 @@ class SpeechVC: UIViewController, AVAudioPlayerDelegate {
                 break
         }
     }
-    
-    
-    func getDirURL() -> URL {
-        
-        let fileManager = FileManager.default
-        let docURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let dirURL = docURL.appendingPathComponent(arrPlatform[platformType.rawValue])
-        let dirURLPath = dirURL.path
-        
-        if !fileManager.fileExists(atPath: dirURLPath) {
-            do {
-                try fileManager.createDirectory(atPath: dirURLPath, withIntermediateDirectories: true, attributes: nil)
-            } catch {
-                print("Couldn't create document directory")
-            }
-        }
-        
-        return dirURL
-    }
-    
-    func getFileURL() -> URL {
-        
-        let dirURL = getDirURL()
-        //        let filename = Util.getCurrentDate() + ".mp3"
-        let filename = arrPlatform[platformType.rawValue] + "_" + arrSpeaker[indexRow] + ".mp3"
-        let fileURL = dirURL.appendingPathComponent(filename)
-        
-        return fileURL
-        
-    }
-    
-    func checkFileURL(url: URL) -> Bool {
-        
-        let fileManager = FileManager.default
-        return fileManager.fileExists(atPath: url.path)
-        
-    }
-    
-    func moveMP3List() {
-        
-        let dirURL = getDirURL()
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let uvc = storyboard.instantiateViewController(withIdentifier: "MP3ListVC") as? MP3ListVC {
-            uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
-            uvc.dirURL = dirURL
-            self.navigationController?.pushViewController(uvc, animated: true)
-        }
-    }
-    
-    func playMP3(fileURL: URL) {
-        
-        do {
-            audioPlayer = try AVAudioPlayer(contentsOf: fileURL)
-            audioPlayer?.delegate = self
-            audioPlayer?.prepareToPlay()
-            audioPlayer?.play()
-            
-        }
-        catch {
-            print("Error prepare to play...")
-        }
-    }
-    
-    func displayPopup(title: String, message: String) {
-        
-        let popup = PopupDialog(title: title, message: message)
-        let btnOK = DefaultButton(title: "OK", action: nil)
-        
-        self.present(popup, animated: true, completion: nil)
-    }
-    
-    func doNaverCSS() {
-        
-        fileURL = getFileURL()
-        let fileManager = FileManager.default
-        if fileManager.fileExists(atPath: fileURL?.path ?? "") {
-            if DEBUG_MODE {
-                moveMP3List()
-            }
-            else {
-                playMP3(fileURL: fileURL!)
-            }
-        }
-        else {
-            let speaker = arrSpeaker[indexRow]
-            let content = arrContent[indexRow]
-            downloadNaverCSS(content: content, speaker: speaker)
-        }
-        
-    }
-    
-    func doNaverCPV() {
-        
-        fileURL = getFileURL()
-        let fileManager = FileManager.default
-        if fileManager.fileExists(atPath: fileURL?.path ?? "") {
-            if DEBUG_MODE {
-                moveMP3List()
-            }
-            else {
-                playMP3(fileURL: fileURL!)
-            }
-        }
-        else {
-            let speaker = arrSpeaker[indexRow]
-            let content = arrContent[indexRow]
-            downloadNaverCPV(content: content, speaker: speaker)
-        }
-    }
-    
-    func doAWS() {
-        
-        
-    }
-    
-    func doKakao() {
-        
-        fileURL = getFileURL()
-        let fileManager = FileManager.default
-        if fileManager.fileExists(atPath: fileURL?.path ?? "") {
-            if DEBUG_MODE {
-                moveMP3List()
-            }
-            else {
-                playMP3(fileURL: fileURL!)
-            }
-        }
-        else {
-            let speaker = arrSpeaker[indexRow]
-            let content = arrContent[indexRow]
-            downloadKakao(content: content)
-        }
-    }
-    
-    func downloadNaverCSS(content: String, speaker: String, speed: Int = 0) {
-        
-        print("downloadNaverCSS content: \(content)")
-        let header = APIParameter.getNaverHeaderItem()
-        let param = APIParameter.postNaverCSS(content: content, speaker: speaker, speed: speed)
-        
-        guard let urlComps = NSURLComponents(string: API_PATH_NAVER_HOST + API_PATH_NAVER_CSS) else{
-            return
-        }
-        
-        guard let url = urlComps.url else{
-            return
-        }
-        
-        //        LoadingHUD.show()
-        APIService.request(url: url, method: .post, param: param, header: header)
-            //            .filter{AppServiceErrorCode.checkData(vc: self, data: $0)}
-            .subscribe(onNext: {
-                [weak self] data in
-                
-                print("data : \(String(decoding: data, as: UTF8.self))")
-                
-                let dataJson = JSON(data)
-                if dataJson["error"].isEmpty {
-                    // 입력데이타를 파일로 저장
-                    do {
-                        try data.write(to: (self?.fileURL)!)
-                        
-                    } catch {
-                        print("Something went wrong!")
-                    }
-                    
-                    if DEBUG_MODE {
-                        // move to vc of mp3 list
-                        self?.moveMP3List()
-                    }
-                    else {
-                        // play mp3
-                        self?.playMP3(fileURL: (self?.fileURL)!)
-                    }
-                    
-                }
-                else {
-                    // popup
-                    let error = dataJson["error"]
-                    let message = error["message"].string ?? "에러발생"
-                    self?.displayPopup(title: "Error", message: message)
-                }
-                
-                },onError: {
-                    error in
-                    
-                    
-            },onCompleted: {
-                //                LoadingHUD.hide()
-                
-                
-            }).disposed(by: disposeBag)
-    }
-    
-    func downloadNaverCPV(content: String, speaker: String, speed: Int = 0, volume: Int = 0, pitch: Int = 0, emotion: Int = 0, format: String = "mp3") {
-        
-        print("downloadNaverCSS content: \(content)")
-        let header = APIParameter.getNaverHeaderItem()
-        let param = APIParameter.postNaverCPV(content: content, speaker: speaker, speed: speed, volume: volume, pitch: pitch, emotion: emotion, format: format)
-        
-        guard let urlComps = NSURLComponents(string: API_PATH_NAVER_HOST + API_PATH_NAVER_CPV) else{
-            return
-        }
-        
-        guard let url = urlComps.url else{
-            return
-        }
-        
-        //        LoadingHUD.show()
-        APIService.request(url: url, method: .post, param: param, header: header)
-            //            .filter{AppServiceErrorCode.checkData(vc: self, data: $0)}
-            .subscribe(onNext: {
-                [weak self] data in
-                
-                print("data : \(String(decoding: data, as: UTF8.self))")
-                
-                let dataJson = JSON(data)
-                if dataJson["error"].isEmpty {
-                    // 입력데이타를 파일로 저장
-                    do {
-                        try data.write(to: (self?.fileURL)!)
-                        
-                    } catch {
-                        print("Something went wrong!")
-                    }
-                    
-                    if DEBUG_MODE {
-                        // move to vc of mp3 list
-                        self?.moveMP3List()
-                    }
-                    else {
-                        // play mp3
-                        self?.playMP3(fileURL: (self?.fileURL)!)
-                    }
-                    
-                }
-                else {
-                    // popup
-                    let error = dataJson["error"]
-                    let message = error["message"].string ?? "에러발생"
-                    self?.displayPopup(title: "Error", message: message)
-                }
-                
-                },onError: {
-                    error in
-                    
-                    
-            },onCompleted: {
-                //                LoadingHUD.hide()
-                
-                
-            }).disposed(by: disposeBag)
-    }
-    
-    func downloadKakao(content: String) {
-        
-        print("downloadKakao content: \(content)")
-        let header = APIParameter.getKakaoHeaderItem()
-        guard let url = APIParameter.postKakao(content: content, header: header) else{
-            return
-        }
-        
-        //        LoadingHUD.show()
-        APIService.request(urlrequest: url)
-            //            .filter{AppServiceErrorCode.checkData(vc: self, data: $0)}
-            .subscribe(onNext: {
-                [weak self] data in
-                
-                print("data : \(String(decoding: data, as: UTF8.self))")
-                
-                let dataJson = JSON(data)
-                let message = dataJson["msg"].string
 
-                if message?.isEmpty ?? true {
-                    // 입력데이타를 파일로 저장
-                    do {
-                        try data.write(to: (self?.fileURL)!)
-                        
-                    } catch {
-                        print("Something went wrong!")
-                    }
-                    
-                    if DEBUG_MODE {
-                        // move to vc of mp3 list
-                        self?.moveMP3List()
-                    }
-                    else {
-                        // play mp3
-                        self?.playMP3(fileURL: (self?.fileURL)!)
-                    }
-                    
-                }
-                else {
-                    // popup
-                    let message = dataJson["msg"].string ?? "에러발생"
-                    self?.displayPopup(title: "Error", message: message)
-                    
-                }
-                
-                },onError: {
-                    error in
-                    
-            },onCompleted: {
-                //                    LoadingHUD.hide()
-            }).disposed(by: self.disposeBag)
-        
-    }
     
     
 }
@@ -401,16 +98,16 @@ extension SpeechVC: UITableViewDelegate, UITableViewDataSource {
         
         switch platformType {
             case PlatformType.NAVER_CSS:
-                doNaverCSS()
+                naver.doNaverCSS(arrSpeaker: arrSpeaker, arrContent: arrContent, index: indexRow)
             
             case PlatformType.NAVER_CPV:
-                doNaverCPV()
+                naver.doNaverCPV(arrSpeaker: arrSpeaker, arrContent: arrContent, index: indexRow)
             
             case PlatformType.KAKAO:
-                doKakao()
+                kakao.doKakao(arrSpeaker: arrSpeaker, arrContent: arrContent, index: indexRow)
             
             case PlatformType.AWS:
-                doAWS()
+                print("type AWS")
             
             case PlatformType.GOOGLE:
                 print("type GOOGLE")

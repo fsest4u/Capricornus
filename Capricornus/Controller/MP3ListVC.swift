@@ -44,65 +44,23 @@ class MP3ListVC: UIViewController, AVAudioPlayerDelegate {
     }
     */
     
-    func debugPlaySample() {
+    func checkFileSize(filename: String) {
         
-        let path = Bundle.main.path(forResource: "sample.mp3", ofType: nil)!
-        let fileURL = URL(fileURLWithPath: path)
-        
-        do {
-            audioPlayer = try AVAudioPlayer(contentsOf: fileURL)
-            audioPlayer?.delegate = self
-            audioPlayer?.prepareToPlay()
-            audioPlayer?.play()
-            
-        }
-        catch {
-            print("Error prepare to play...")
-        }
-        
-    }
-    
-    func debugCheckFileSize(filename: String) {
-
         let fileURL = (dirURL?.appendingPathComponent(filename))!
-        let fileManager = FileManager.default
-        do {
-            let attr = try fileManager.attributesOfItem(atPath: fileURL.path)
-            let size = attr[FileAttributeKey.size] as! UInt64
-            print("debugCheckFileSize file size : \(size)")
-            
-        } catch {
-            print("Error attributesOfItem...")
-            
-        }
+        Util.checkFileSize(fileURL: fileURL)
     }
     
     func playMP3(dirURL: URL, filename: String) {
         
         let fileURL = (dirURL.appendingPathComponent(filename))
+        Util.playMP3(uvc: self, fileURL: fileURL)
 
-        do {
-            audioPlayer = try AVAudioPlayer(contentsOf: fileURL)
-            audioPlayer?.delegate = self
-            audioPlayer?.prepareToPlay()
-            audioPlayer?.play()
-
-        }
-        catch {
-            print("Error prepare to play...")
-        }
     }
     
     func deleteMP3(dirURL: URL, filename: String) {
         
         let fileURL = (dirURL.appendingPathComponent(filename))
-        let fileManager = FileManager.default
-        do {
-            try fileManager.removeItem(at: fileURL)
-        }
-        catch {
-            print("Error delete file \(filename)")
-        }
+        Util.deleteMP3(fileURL: fileURL)
         
     }
 
