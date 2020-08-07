@@ -15,15 +15,23 @@ enum PlatformType: Int {
     case NAVER_CSS = 0
     case NAVER_CPV
     case KAKAO
-    case AWS
     case GOOGLE
-    case MICROSOFT
-    case IBM
+    case AWS
+//    case MICROSOFT
+//    case IBM
 
 }
 var platformType = PlatformType.NAVER_CSS
 
-let arrPlatform = ["Naver_CSS", "Naver_CPV", "Kakao", "AWS", "Google", "Microsoft", "IBM"]
+let arrPlatform = [
+    "Naver_CSS"
+    , "Naver_CPV"
+    , "Kakao"
+    , "Google"
+    , "AWS"
+//    , "Microsoft"
+//    , "IBM"
+]
 
 
 //------------------------------
@@ -77,17 +85,6 @@ let arrNaverCPVContent = [
 ]
 
 //------------------------------
-// AWS - General
-//------------------------------
-
-
-
-//------------------------------
-// AWS - Neural Network
-//------------------------------
-
-
-//------------------------------
 //MARK: KAKAO
 //------------------------------
 let API_PATH_KAKAO_HOST = "https://kakaoi-newtone-openapi.kakao.com"
@@ -120,9 +117,54 @@ let arrKakaoContent = [
 """
     , """
 <speak>
-<voice name="MAN_DIALOG_BRIGHT"> 대체 무슨 말인지.'뭐야, 이 아저씨는.' 그리고 대체 누구인지. 굳은 머리로 곰곰이 생각해봤지만 모르겠다. 이 정도로 일상 회화를 주고 받을 만한 인간이 최근에는 없었다.</voice>
+<voice name="MAN_DIALOG_BRIGHT"> 정현아 사랑해. 말인지.'뭐야, 이 아저씨는.' 그리고 대체 누구인지. 굳은 머리로 곰곰이 생각해봤지만 모르겠다. 이 정도로 일상 회화를 주고 받을 만한 인간이 최근에는 없었다.</voice>
 </speak>
 """
 ]
 
+//------------------------------
+//MARK: Google - General
+//------------------------------
+let API_PATH_GOOGLE_HOST = "https://texttospeech.googleapis.com"
 
+let API_PATH_GOOGLE_SYN = "/v1/text:synthesize"
+
+let PARAM_NAME_GOOGLE_CONTENT_TYPE = "Content-Type"
+let PARAM_NAME_GOOGLE_AUTHORIZATION = "Authorization"
+
+let PARAM_VALUE_GOOGLE_CONTENT_TYPE = "application/json; charset=utf-8"
+//let PARAM_VALUE_GOOGLE_AUTHORIZATION = "Bearer $(gcloud auth application-default print-access-token)"
+let PARAM_VALUE_GOOGLE_AUTHORIZATION = "Bearer $(gcloud auth  print-access-token)"
+
+let arrGoogleTitle = ["en-GB-Standard-A"]
+
+let arrGoogleContent = [
+"""
+{
+  'input':{
+    'text':'Android is a mobile operating system developed by Google,
+       based on the Linux kernel and designed primarily for
+       touchscreen mobile devices such as smartphones and tablets.'
+  },
+  'voice':{
+    'languageCode':'en-gb',
+    'name':'en-GB-Standard-A',
+    'ssmlGender':'FEMALE'
+  },
+  'audioConfig':{
+    'audioEncoding':'MP3'
+  }
+}
+"""
+]
+
+
+//------------------------------
+//MARK: AWS - General
+//------------------------------
+
+
+
+//------------------------------
+// AWS - Neural Network
+//------------------------------

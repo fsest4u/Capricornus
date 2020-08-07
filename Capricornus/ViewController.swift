@@ -48,7 +48,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let index = indexPath.row
-        if index >= 3 {
+        if index >= 4 {
             displayPopup(title: "안내", message: "준비 중입니다.")
             return
         }

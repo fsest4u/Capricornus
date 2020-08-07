@@ -25,6 +25,7 @@ class SpeechVC: UIViewController, AVAudioPlayerDelegate {
     
     var naver = Naver()
     var kakao = Kakao()
+    var google = Google()
     
     var disposeBag = DisposeBag()
     
@@ -50,25 +51,30 @@ class SpeechVC: UIViewController, AVAudioPlayerDelegate {
     func initArrayData() {
         
         switch platformType {
-            case PlatformType.NAVER_CSS:
-                naver.uvc = self
-                arrTitle = arrNaverCSSTitle
-                arrSpeaker = arrNaverCSSSpeaker
-                arrContent = arrNaverCSSContent
+        case PlatformType.NAVER_CSS:
+            naver.uvc = self
+            arrTitle = arrNaverCSSTitle
+            arrSpeaker = arrNaverCSSSpeaker
+            arrContent = arrNaverCSSContent
             
-            case PlatformType.NAVER_CPV:
-                naver.uvc = self
-                arrTitle = arrNaverCPVTitle
-                arrSpeaker = arrNaverCPVSpeaker
-                arrContent = arrNaverCPVContent
+        case PlatformType.NAVER_CPV:
+            naver.uvc = self
+            arrTitle = arrNaverCPVTitle
+            arrSpeaker = arrNaverCPVSpeaker
+            arrContent = arrNaverCPVContent
             
-            case PlatformType.KAKAO:
-                kakao.uvc = self
-                arrTitle = arrKakaoTitle
-                arrSpeaker = arrKakaoTitle
-                arrContent = arrKakaoContent
-            default:
-                break
+        case PlatformType.KAKAO:
+            kakao.uvc = self
+            arrTitle = arrKakaoTitle
+            arrSpeaker = arrKakaoTitle
+            arrContent = arrKakaoContent
+        case PlatformType.GOOGLE:
+            google.uvc = self
+            arrTitle = arrGoogleTitle
+            arrSpeaker = arrGoogleTitle
+            arrContent = arrGoogleContent
+        default:
+            break
         }
     }
 
@@ -97,29 +103,29 @@ extension SpeechVC: UITableViewDelegate, UITableViewDataSource {
         indexRow = indexPath.row
         
         switch platformType {
-            case PlatformType.NAVER_CSS:
-                naver.doNaverCSS(arrSpeaker: arrSpeaker, arrContent: arrContent, index: indexRow)
+        case PlatformType.NAVER_CSS:
+            naver.doNaverCSS(arrSpeaker: arrSpeaker, arrContent: arrContent, index: indexRow)
             
-            case PlatformType.NAVER_CPV:
-                naver.doNaverCPV(arrSpeaker: arrSpeaker, arrContent: arrContent, index: indexRow)
+        case PlatformType.NAVER_CPV:
+            naver.doNaverCPV(arrSpeaker: arrSpeaker, arrContent: arrContent, index: indexRow)
             
-            case PlatformType.KAKAO:
-                kakao.doKakao(arrSpeaker: arrSpeaker, arrContent: arrContent, index: indexRow)
+        case PlatformType.KAKAO:
+            kakao.doKakao(arrSpeaker: arrSpeaker, arrContent: arrContent, index: indexRow)
             
-            case PlatformType.AWS:
-                print("type AWS")
+        case PlatformType.GOOGLE:
+            google.doGoogle(arrSpeaker: arrSpeaker, arrContent: arrContent, index: indexRow)
             
-            case PlatformType.GOOGLE:
-                print("type GOOGLE")
+        case PlatformType.AWS:
+            print("type AWS")
             
-            case PlatformType.MICROSOFT:
-                print("type MICROSOFT")
-            
-            case PlatformType.IBM:
-                print("type IBM")
-            
-            default:
-                print("type NONE")
+//        case PlatformType.MICROSOFT:
+//            print("type MICROSOFT")
+//
+//        case PlatformType.IBM:
+//            print("type IBM")
+//
+//        default:
+//            print("type NONE")
             
         }
     }

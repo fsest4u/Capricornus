@@ -46,6 +46,17 @@ class APIParameter {
         return header
         
     }
+    
+    static func getGoogleHeaderItem() -> Dictionary<String, String> {
+                
+        var header: [String: String] = Dictionary<String, String>()
+        
+        header[PARAM_NAME_GOOGLE_CONTENT_TYPE] = PARAM_VALUE_GOOGLE_CONTENT_TYPE
+        header[PARAM_NAME_GOOGLE_AUTHORIZATION] = PARAM_VALUE_GOOGLE_AUTHORIZATION
+          
+        return header
+        
+    }
 
     static func postNaverCSS(content: String, speaker: String, speed: Int) -> Dictionary<String, Any> {
         
@@ -126,4 +137,32 @@ class APIParameter {
         return request
     }
     
+    static func postGoogle(content: String, header: HTTPHeaders) -> URLRequest? {
+            
+            var queryItems = getBaseQueryItem()
+
+            guard let urlComps = NSURLComponents(string: API_PATH_GOOGLE_HOST + API_PATH_GOOGLE_SYN) else {
+                return nil
+            }
+            
+            urlComps.queryItems = queryItems as [URLQueryItem]
+    //        urlComps.replacingPlus()
+            
+            guard let url = urlComps.url else{
+                return nil
+                
+            }
+            var request: URLRequest?
+            do {
+                request = try URLRequest(url: url, method: .post, headers: header)
+    //            request?.httpMethod = "POST"
+                request?.httpBody = content.data(using: .utf8)
+            }
+            catch {
+                print("Error postGoogle URLRequest")
+            }
+
+            
+            return request
+        }
 }

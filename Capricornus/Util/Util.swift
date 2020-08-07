@@ -94,6 +94,18 @@ class Util {
         }
     }
     
+    static func stopMP3(uvc: AVAudioPlayerDelegate, fileURL: URL) {
+        
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: fileURL)
+            audioPlayer?.delegate = uvc
+            audioPlayer?.stop()
+        }
+        catch {
+            print("Error stopMP3 fie \(fileURL.path)")
+        }
+    }
+    
     static func deleteMP3(fileURL: URL) {
         let fileManager = FileManager.default
         do {

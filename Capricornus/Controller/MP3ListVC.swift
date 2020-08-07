@@ -15,6 +15,8 @@ class MP3ListVC: UIViewController, AVAudioPlayerDelegate {
     
     var arrFile: [String]?
     
+    var filename: String?
+    
     var audioPlayer: AVAudioPlayer?
     
     override func viewDidLoad() {
@@ -33,6 +35,10 @@ class MP3ListVC: UIViewController, AVAudioPlayerDelegate {
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        stopMP3(dirURL: dirURL!, filename: self.filename ?? "")
+    }
 
     /*
     // MARK: - Navigation
@@ -57,12 +63,19 @@ class MP3ListVC: UIViewController, AVAudioPlayerDelegate {
 
     }
     
+    func stopMP3(dirURL: URL, filename: String) {
+        let fileURL = (dirURL.appendingPathComponent(filename))
+        Util.stopMP3(uvc: self, fileURL: fileURL)
+    }
+    
     func deleteMP3(dirURL: URL, filename: String) {
         
         let fileURL = (dirURL.appendingPathComponent(filename))
         Util.deleteMP3(fileURL: fileURL)
         
     }
+    
+    
 
 }
 
@@ -85,7 +98,7 @@ extension MP3ListVC: UITableViewDelegate, UITableViewDataSource {
         
         let curCell = tableView.cellForRow(at: indexPath) as! MP3ListCell
         let filename = curCell.labelFileName.text ?? ""
-        
+        self.filename = filename
 //        debugPlaySample()
 //        debugCheckFileSize(filename: filename)
         playMP3(dirURL: dirURL!, filename: filename)
