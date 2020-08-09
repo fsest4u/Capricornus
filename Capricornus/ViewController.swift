@@ -15,15 +15,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-    
-    func displayPopup(title: String, message: String) {
-        
-        let popup = PopupDialog(title: title, message: message)
-        let btnOK = DefaultButton(title: "OK", action: nil)
-        
-        self.present(popup, animated: true, completion: nil)
-    }
-    
 
 }
 
@@ -48,18 +39,18 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let index = indexPath.row
-        if index >= 4 {
-            displayPopup(title: "안내", message: "준비 중입니다.")
-            return
+        if index == 0 {
+            Util.moveSTT(vc: self, index: index)
         }
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let uvc = storyboard.instantiateViewController(withIdentifier: "SpeechVC") as? SpeechVC {
-            uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
-            platformType = PlatformType(rawValue: index) ?? PlatformType.NAVER_CSS
-            self.navigationController?.pushViewController(uvc, animated: true)
+        else {
+            if index >= 5 {
+                Util.displayPopup(uvc: self, title: "안내", message: "준비 중입니다.")
+                return
+            }
+            
+            Util.moveTTS(vc: self, index: index)
         }
- 
+
     }
     
     

@@ -68,6 +68,26 @@ class Util {
         
     }
     
+    static func moveSTT(vc: UIViewController, index: Int) {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let uvc = storyboard.instantiateViewController(withIdentifier: "STTVC") as? STTVC {
+            uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
+            platformType = PlatformType(rawValue: index) ?? PlatformType.NAVER_CSR
+            vc.navigationController?.pushViewController(uvc, animated: true)
+        }
+    }
+    
+    static func moveTTS(vc: UIViewController, index: Int) {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let uvc = storyboard.instantiateViewController(withIdentifier: "TTSVC") as? TTSVC {
+            uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
+            platformType = PlatformType(rawValue: index) ?? PlatformType.NAVER_CSS
+            vc.navigationController?.pushViewController(uvc, animated: true)
+        }
+    }
+    
     static func moveMP3List(vc: UIViewController, dirname: String) {
         
         let dirURL = Util.getDirURL(dirname: dirname)

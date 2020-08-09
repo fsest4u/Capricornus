@@ -1,5 +1,5 @@
 //
-//  SpeechVC.swift
+//  TTSVC.swift
 //  Capricornus
 //
 //  Created by spdevapp on 2020/08/04.
@@ -12,13 +12,12 @@ import RxSwift
 import SwiftyJSON
 import Alamofire
 
-class SpeechVC: UIViewController, AVAudioPlayerDelegate {
+class TTSVC: UIViewController, AVAudioPlayerDelegate {
     
     var indexRow = 0
     
     var fileURL: URL?
-    
-    
+
     var arrTitle: [String] = []
     var arrSpeaker: [String] = []
     var arrContent: [String] = []
@@ -33,7 +32,7 @@ class SpeechVC: UIViewController, AVAudioPlayerDelegate {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        print("SpeechVC platformType : \(platformType)")
+        print("TTSVC platformType : \(platformType)")
         initArrayData()
     }
     
@@ -51,6 +50,8 @@ class SpeechVC: UIViewController, AVAudioPlayerDelegate {
     func initArrayData() {
         
         switch platformType {
+        case PlatformType.NAVER_CSR:
+            print("NAVER_CSR")
         case PlatformType.NAVER_CSS:
             naver.uvc = self
             arrTitle = arrNaverCSSTitle
@@ -82,7 +83,7 @@ class SpeechVC: UIViewController, AVAudioPlayerDelegate {
     
 }
 
-extension SpeechVC: UITableViewDelegate, UITableViewDataSource {
+extension TTSVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return arrContent.count
@@ -103,6 +104,8 @@ extension SpeechVC: UITableViewDelegate, UITableViewDataSource {
         indexRow = indexPath.row
         
         switch platformType {
+        case PlatformType.NAVER_CSR:
+            print("NAVER_CSR")
         case PlatformType.NAVER_CSS:
             naver.doNaverCSS(arrSpeaker: arrSpeaker, arrContent: arrContent, index: indexRow)
             

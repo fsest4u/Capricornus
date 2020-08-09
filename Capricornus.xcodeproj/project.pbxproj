@@ -15,7 +15,7 @@
 		1737E33324D93CD000A19E5E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1737E33124D93CD000A19E5E /* LaunchScreen.storyboard */; };
 		1737E33E24D93CD000A19E5E /* CapricornusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1737E33D24D93CD000A19E5E /* CapricornusTests.swift */; };
 		1737E34924D93CD100A19E5E /* CapricornusUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1737E34824D93CD100A19E5E /* CapricornusUITests.swift */; };
-		1737E35824D93FBE00A19E5E /* SpeechVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1737E35724D93FBE00A19E5E /* SpeechVC.swift */; };
+		1737E35824D93FBE00A19E5E /* TTSVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1737E35724D93FBE00A19E5E /* TTSVC.swift */; };
 		1737E35B24D941AE00A19E5E /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1737E35A24D941AE00A19E5E /* Constant.swift */; };
 		1737E35D24DA2A3B00A19E5E /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1737E35C24DA2A3B00A19E5E /* APIService.swift */; };
 		1737E35F24DA2B9800A19E5E /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1737E35E24DA2B9800A19E5E /* Extension.swift */; };
@@ -29,6 +29,7 @@
 		C36A339A24DCDCA100E6ECA5 /* Naver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36A339924DCDCA100E6ECA5 /* Naver.swift */; };
 		C36A339C24DCDCB200E6ECA5 /* Kakao.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36A339B24DCDCB200E6ECA5 /* Kakao.swift */; };
 		C36A339E24DD09C100E6ECA5 /* Google.swift in Sources */ = {isa = PBXBuildFile; fileRef = C36A339D24DD09C100E6ECA5 /* Google.swift */; };
+		C3A294FA24DD619D0007D109 /* STTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A294F924DD619D0007D109 /* STTVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,7 +65,7 @@
 		1737E34424D93CD100A19E5E /* CapricornusUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CapricornusUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1737E34824D93CD100A19E5E /* CapricornusUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapricornusUITests.swift; sourceTree = "<group>"; };
 		1737E34A24D93CD100A19E5E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1737E35724D93FBE00A19E5E /* SpeechVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechVC.swift; sourceTree = "<group>"; };
+		1737E35724D93FBE00A19E5E /* TTSVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSVC.swift; sourceTree = "<group>"; };
 		1737E35A24D941AE00A19E5E /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		1737E35C24DA2A3B00A19E5E /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		1737E35E24DA2B9800A19E5E /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
@@ -82,6 +83,7 @@
 		C36A339924DCDCA100E6ECA5 /* Naver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Naver.swift; sourceTree = "<group>"; };
 		C36A339B24DCDCB200E6ECA5 /* Kakao.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Kakao.swift; sourceTree = "<group>"; };
 		C36A339D24DD09C100E6ECA5 /* Google.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Google.swift; sourceTree = "<group>"; };
+		C3A294F924DD619D0007D109 /* STTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STTVC.swift; sourceTree = "<group>"; };
 		C96B8C2C75FF85E3B77A2CCD /* Pods-Capricornus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Capricornus.release.xcconfig"; path = "Target Support Files/Pods-Capricornus/Pods-Capricornus.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -186,7 +188,8 @@
 			isa = PBXGroup;
 			children = (
 				1737E32A24D93CD000A19E5E /* ViewController.swift */,
-				1737E35724D93FBE00A19E5E /* SpeechVC.swift */,
+				1737E35724D93FBE00A19E5E /* TTSVC.swift */,
+				C3A294F924DD619D0007D109 /* STTVC.swift */,
 				1737E36424DA6ECE00A19E5E /* MP3ListVC.swift */,
 				C36A339924DCDCA100E6ECA5 /* Naver.swift */,
 				C36A339B24DCDCB200E6ECA5 /* Kakao.swift */,
@@ -459,6 +462,7 @@
 			files = (
 				1737E36124DA2C9300A19E5E /* APIParameter.swift in Sources */,
 				1737E36324DA5E8200A19E5E /* Util.swift in Sources */,
+				C3A294FA24DD619D0007D109 /* STTVC.swift in Sources */,
 				1737E35B24D941AE00A19E5E /* Constant.swift in Sources */,
 				1737E32B24D93CD000A19E5E /* ViewController.swift in Sources */,
 				C36A339A24DCDCA100E6ECA5 /* Naver.swift in Sources */,
@@ -467,7 +471,7 @@
 				1737E36524DA6ECE00A19E5E /* MP3ListVC.swift in Sources */,
 				1737E32724D93CD000A19E5E /* AppDelegate.swift in Sources */,
 				C36A339E24DD09C100E6ECA5 /* Google.swift in Sources */,
-				1737E35824D93FBE00A19E5E /* SpeechVC.swift in Sources */,
+				1737E35824D93FBE00A19E5E /* TTSVC.swift in Sources */,
 				1737E35D24DA2A3B00A19E5E /* APIService.swift in Sources */,
 				1737E32924D93CD000A19E5E /* SceneDelegate.swift in Sources */,
 			);

@@ -12,7 +12,8 @@ let DEBUG_MODE = true
 
 enum PlatformType: Int {
     
-    case NAVER_CSS = 0
+    case NAVER_CSR = 0
+    case NAVER_CSS
     case NAVER_CPV
     case KAKAO
     case GOOGLE
@@ -24,7 +25,8 @@ enum PlatformType: Int {
 var platformType = PlatformType.NAVER_CSS
 
 let arrPlatform = [
-    "Naver_CSS"
+    "Naver_CSR"
+    , "Naver_CSS"
     , "Naver_CPV"
     , "Kakao"
     , "Google"
