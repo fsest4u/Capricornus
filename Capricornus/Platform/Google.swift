@@ -22,7 +22,7 @@ class Google {
 
     func doGoogle(arrSpeaker: [String], arrContent: [String], index: Int) {
         
-        fileURL = Util.getFileURL(dirname: arrTTSPlatform[ttsPlatformType.rawValue], basename: arrSpeaker[index])
+        fileURL = UtilFile.getFileURL(dirname: arrTTSPlatform[ttsPlatformType.rawValue], basename: arrSpeaker[index])
         let fileManager = FileManager.default
         print("doGoogle: \(fileURL?.path)")
         if fileManager.fileExists(atPath: fileURL?.path ?? "") {
@@ -30,7 +30,7 @@ class Google {
                 Util.moveMP3List(vc: uvc ?? UIViewController(), dirname: arrTTSPlatform[ttsPlatformType.rawValue])
             }
             else {
-                Util.playMP3(uvc: uvc as! AVAudioPlayerDelegate, fileURL: fileURL!)
+                UtilAudio.playMP3(uvc: uvc as! AVAudioPlayerDelegate, fileURL: fileURL!)
             }
         }
         else {
@@ -72,7 +72,7 @@ class Google {
                     }
                     else {
                         // play mp3
-                        Util.playMP3(uvc: self?.uvc as! AVAudioPlayerDelegate, fileURL: (self?.fileURL)!)
+                        UtilAudio.playMP3(uvc: self?.uvc as! AVAudioPlayerDelegate, fileURL: (self?.fileURL)!)
                     }
                     
                 }

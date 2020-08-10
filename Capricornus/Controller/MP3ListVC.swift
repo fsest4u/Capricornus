@@ -53,25 +53,25 @@ class MP3ListVC: UIViewController, AVAudioPlayerDelegate {
     func checkFileSize(filename: String) {
         
         let fileURL = (dirURL?.appendingPathComponent(filename))!
-        Util.checkFileSize(fileURL: fileURL)
+        UtilFile.checkFileSize(fileURL: fileURL)
     }
     
     func playMP3(dirURL: URL, filename: String) {
         
         let fileURL = (dirURL.appendingPathComponent(filename))
-        Util.playMP3(uvc: self, fileURL: fileURL)
+        UtilAudio.playMP3(uvc: self, fileURL: fileURL)
 
     }
     
     func stopMP3(dirURL: URL, filename: String) {
         let fileURL = (dirURL.appendingPathComponent(filename))
-        Util.stopMP3(uvc: self, fileURL: fileURL)
+        UtilAudio.stopMP3(uvc: self, fileURL: fileURL)
     }
     
     func deleteMP3(dirURL: URL, filename: String) {
         
         let fileURL = (dirURL.appendingPathComponent(filename))
-        Util.deleteMP3(fileURL: fileURL)
+        UtilAudio.deleteMP3(fileURL: fileURL)
         
     }
     

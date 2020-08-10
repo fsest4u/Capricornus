@@ -27,6 +27,7 @@
 		17771C0F24E11C5900FB2B14 /* STTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17771C0E24E11C5900FB2B14 /* STTVC.swift */; };
 		17771C1224E11FBD00FB2B14 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17771C1124E11FBD00FB2B14 /* CustomCell.swift */; };
 		17771C1424E1201400FB2B14 /* UtilFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17771C1324E1201400FB2B14 /* UtilFile.swift */; };
+		17771C1624E122E300FB2B14 /* UtilAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17771C1524E122E300FB2B14 /* UtilAudio.swift */; };
 		3E0D0E35FDFB4F2B3D0B08F5 /* Pods_Capricornus_CapricornusUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3116513D45BF33073328302 /* Pods_Capricornus_CapricornusUITests.framework */; };
 		402FCB3ADDBDAC915CACBDEE /* Pods_Capricornus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BC485F1A67AD04FDB62AD7B /* Pods_Capricornus.framework */; };
 		4AAA0F76A1EE42186628CE5B /* Pods_CapricornusTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E429000F326A6EE8CD5AB58 /* Pods_CapricornusTests.framework */; };
@@ -81,6 +82,7 @@
 		17771C0E24E11C5900FB2B14 /* STTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STTVC.swift; sourceTree = "<group>"; };
 		17771C1124E11FBD00FB2B14 /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		17771C1324E1201400FB2B14 /* UtilFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilFile.swift; sourceTree = "<group>"; };
+		17771C1524E122E300FB2B14 /* UtilAudio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilAudio.swift; sourceTree = "<group>"; };
 		1BC485F1A67AD04FDB62AD7B /* Pods_Capricornus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Capricornus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DD87D1C9296D23F97FA4391 /* Pods-Capricornus-CapricornusUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Capricornus-CapricornusUITests.release.xcconfig"; path = "Target Support Files/Pods-Capricornus-CapricornusUITests/Pods-Capricornus-CapricornusUITests.release.xcconfig"; sourceTree = "<group>"; };
 		1E429000F326A6EE8CD5AB58 /* Pods_CapricornusTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CapricornusTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -215,6 +217,7 @@
 				1737E35E24DA2B9800A19E5E /* Extension.swift */,
 				1737E36024DA2C9300A19E5E /* APIParameter.swift */,
 				1737E36224DA5E8200A19E5E /* Util.swift */,
+				17771C1524E122E300FB2B14 /* UtilAudio.swift */,
 				17771C1324E1201400FB2B14 /* UtilFile.swift */,
 			);
 			path = Util;
@@ -481,6 +484,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1737E36124DA2C9300A19E5E /* APIParameter.swift in Sources */,
+				17771C1624E122E300FB2B14 /* UtilAudio.swift in Sources */,
 				1737E36324DA5E8200A19E5E /* Util.swift in Sources */,
 				17771C1224E11FBD00FB2B14 /* CustomCell.swift in Sources */,
 				C3A294FA24DD619D0007D109 /* RecoriteVC.swift in Sources */,

@@ -22,14 +22,14 @@ class Naver {
 
     func doNaverCSS(arrSpeaker: [String], arrContent: [String], index: Int) {
         
-        fileURL = Util.getFileURL(dirname: arrTTSPlatform[ttsPlatformType.rawValue], basename: arrSpeaker[index])
+        fileURL = UtilFile.getFileURL(dirname: arrTTSPlatform[ttsPlatformType.rawValue], basename: arrSpeaker[index])
         let fileManager = FileManager.default
         if fileManager.fileExists(atPath: fileURL?.path ?? "") {
             if DEBUG_MODE {
                 Util.moveMP3List(vc: uvc ?? UIViewController(), dirname: arrTTSPlatform[ttsPlatformType.rawValue])
             }
             else {
-                Util.playMP3(uvc: uvc as! AVAudioPlayerDelegate, fileURL: fileURL!)
+                UtilAudio.playMP3(uvc: uvc as! AVAudioPlayerDelegate, fileURL: fileURL!)
             }
         }
         else {
@@ -42,14 +42,14 @@ class Naver {
     
     func doNaverCPV(arrSpeaker: [String], arrContent: [String], index: Int) {
         
-        fileURL = Util.getFileURL(dirname: arrTTSPlatform[ttsPlatformType.rawValue], basename: arrSpeaker[index])
+        fileURL = UtilFile.getFileURL(dirname: arrTTSPlatform[ttsPlatformType.rawValue], basename: arrSpeaker[index])
         let fileManager = FileManager.default
         if fileManager.fileExists(atPath: fileURL?.path ?? "") {
             if DEBUG_MODE {
                 Util.moveMP3List(vc: uvc ?? UIViewController(), dirname: arrTTSPlatform[ttsPlatformType.rawValue])
             }
             else {
-                Util.playMP3(uvc: uvc as! AVAudioPlayerDelegate, fileURL: fileURL!)
+                UtilAudio.playMP3(uvc: uvc as! AVAudioPlayerDelegate, fileURL: fileURL!)
             }
         }
         else {
@@ -97,7 +97,7 @@ class Naver {
                     }
                     else {
                         // play mp3
-                        Util.playMP3(uvc: self?.uvc as! AVAudioPlayerDelegate, fileURL: (self?.fileURL)!)
+                        UtilAudio.playMP3(uvc: self?.uvc as! AVAudioPlayerDelegate, fileURL: (self?.fileURL)!)
                     }
                     
                 }
@@ -157,7 +157,7 @@ class Naver {
                     }
                     else {
                         // play mp3
-                        Util.playMP3(uvc: self?.uvc as! AVAudioPlayerDelegate, fileURL: (self?.fileURL)!)
+                        UtilAudio.playMP3(uvc: self?.uvc as! AVAudioPlayerDelegate, fileURL: (self?.fileURL)!)
                     }
                     
                 }
