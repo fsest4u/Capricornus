@@ -23,6 +23,7 @@
 		1737E36324DA5E8200A19E5E /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1737E36224DA5E8200A19E5E /* Util.swift */; };
 		1737E36524DA6ECE00A19E5E /* MP3ListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1737E36424DA6ECE00A19E5E /* MP3ListVC.swift */; };
 		1737E36724DA982A00A19E5E /* sample.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1737E36624DA982A00A19E5E /* sample.mp3 */; };
+		17771C0D24E113E000FB2B14 /* TextListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17771C0C24E113E000FB2B14 /* TextListVC.swift */; };
 		3E0D0E35FDFB4F2B3D0B08F5 /* Pods_Capricornus_CapricornusUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3116513D45BF33073328302 /* Pods_Capricornus_CapricornusUITests.framework */; };
 		402FCB3ADDBDAC915CACBDEE /* Pods_Capricornus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BC485F1A67AD04FDB62AD7B /* Pods_Capricornus.framework */; };
 		4AAA0F76A1EE42186628CE5B /* Pods_CapricornusTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E429000F326A6EE8CD5AB58 /* Pods_CapricornusTests.framework */; };
@@ -73,6 +74,7 @@
 		1737E36224DA5E8200A19E5E /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		1737E36424DA6ECE00A19E5E /* MP3ListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MP3ListVC.swift; sourceTree = "<group>"; };
 		1737E36624DA982A00A19E5E /* sample.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sample.mp3; sourceTree = "<group>"; };
+		17771C0C24E113E000FB2B14 /* TextListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextListVC.swift; sourceTree = "<group>"; };
 		1BC485F1A67AD04FDB62AD7B /* Pods_Capricornus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Capricornus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DD87D1C9296D23F97FA4391 /* Pods-Capricornus-CapricornusUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Capricornus-CapricornusUITests.release.xcconfig"; path = "Target Support Files/Pods-Capricornus-CapricornusUITests/Pods-Capricornus-CapricornusUITests.release.xcconfig"; sourceTree = "<group>"; };
 		1E429000F326A6EE8CD5AB58 /* Pods_CapricornusTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CapricornusTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -189,6 +191,7 @@
 			children = (
 				1737E32A24D93CD000A19E5E /* ViewController.swift */,
 				1737E35724D93FBE00A19E5E /* TTSVC.swift */,
+				17771C0C24E113E000FB2B14 /* TextListVC.swift */,
 				C3A294F924DD619D0007D109 /* STTVC.swift */,
 				1737E36424DA6ECE00A19E5E /* MP3ListVC.swift */,
 				C36A339924DCDCA100E6ECA5 /* Naver.swift */,
@@ -471,6 +474,7 @@
 				1737E36524DA6ECE00A19E5E /* MP3ListVC.swift in Sources */,
 				1737E32724D93CD000A19E5E /* AppDelegate.swift in Sources */,
 				C36A339E24DD09C100E6ECA5 /* Google.swift in Sources */,
+				17771C0D24E113E000FB2B14 /* TextListVC.swift in Sources */,
 				1737E35824D93FBE00A19E5E /* TTSVC.swift in Sources */,
 				1737E35D24DA2A3B00A19E5E /* APIService.swift in Sources */,
 				1737E32924D93CD000A19E5E /* SceneDelegate.swift in Sources */,

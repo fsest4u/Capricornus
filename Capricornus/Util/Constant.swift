@@ -10,9 +10,8 @@ import Foundation
 
 let DEBUG_MODE = true
 
-enum PlatformType: Int {
+enum TTSPlatformType: Int {
     
-    case NAVER_CSR = 0
     case NAVER_CSS
     case NAVER_CPV
     case KAKAO
@@ -22,11 +21,10 @@ enum PlatformType: Int {
 //    case IBM
 
 }
-var platformType = PlatformType.NAVER_CSS
+var ttsPlatformType = TTSPlatformType.NAVER_CSS
 
-let arrPlatform = [
-    "Naver_CSR"
-    , "Naver_CSS"
+let arrTTSPlatform = [
+    "Naver_CSS"
     , "Naver_CPV"
     , "Kakao"
     , "Google"
@@ -35,6 +33,17 @@ let arrPlatform = [
 //    , "IBM"
 ]
 
+
+enum STTPlatformType: Int {
+    
+    case NAVER
+
+}
+var sttPlatformType = STTPlatformType.NAVER
+
+let arrSTTPlatform = [
+    "Naver"
+]
 
 //------------------------------
 //MARK: NAVER

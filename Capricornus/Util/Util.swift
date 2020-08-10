@@ -73,17 +73,27 @@ class Util {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let uvc = storyboard.instantiateViewController(withIdentifier: "STTVC") as? STTVC {
             uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
-            platformType = PlatformType(rawValue: index) ?? PlatformType.NAVER_CSR
+            sttPlatformType = STTPlatformType(rawValue: index) ?? STTPlatformType.NAVER
             vc.navigationController?.pushViewController(uvc, animated: true)
         }
     }
     
-    static func moveTTS(vc: UIViewController, index: Int) {
+    static func moveTTS(vc: UIViewController) {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let uvc = storyboard.instantiateViewController(withIdentifier: "TTSVC") as? TTSVC {
             uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
-            platformType = PlatformType(rawValue: index) ?? PlatformType.NAVER_CSS
+//            platformType = PlatformType(rawValue: index) ?? PlatformType.NAVER_CSS
+            vc.navigationController?.pushViewController(uvc, animated: true)
+        }
+    }
+
+    static func moveTextList(vc: UIViewController, index: Int) {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let uvc = storyboard.instantiateViewController(withIdentifier: "TextListVC") as? TextListVC {
+            uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
+            ttsPlatformType = TTSPlatformType(rawValue: index) ?? TTSPlatformType.NAVER_CSS
             vc.navigationController?.pushViewController(uvc, animated: true)
         }
     }
