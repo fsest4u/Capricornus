@@ -2,7 +2,7 @@
 //  STTVC.swift
 //  Capricornus
 //
-//  Created by 이동윤 on 2020/08/07.
+//  Created by spdevapp on 2020/08/10.
 //  Copyright © 2020 hyeon. All rights reserved.
 //
 
@@ -10,16 +10,6 @@ import UIKit
 
 class STTVC: UIViewController {
 
-    @IBOutlet weak var viewRecord: UIView! {
-           
-        didSet {
-            viewRecord.layer.borderWidth = 0.5
-            viewRecord.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.1)
-            viewRecord.layer.cornerRadius = (viewRecord.frame.width / 2)
-        }
-        
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -37,16 +27,26 @@ class STTVC: UIViewController {
     }
     */
 
-    @IBAction func onClick_BtnRecord(_ sender: UIButton) {
-        
-        sender.isSelected = !sender.isSelected
-        if sender.isSelected {
-            print("start record...")
-            
-        }
-        else {
-            print("stop record...")
-        }
+}
+
+extension STTVC: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return arrSTTPlatform.count
     }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: PlatformCell = tableView.dequeueReusableCell(withIdentifier: "PlatformCell", for: indexPath) as! PlatformCell
+        
+        cell.imageView?.image = UIImage(named: "icon")
+        cell.labelPlatform.text = arrSTTPlatform[indexPath.row]
+        
+        return cell
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let index = indexPath.row
+        Util.moveRecorite(vc: self, index: index)
+    }
 }

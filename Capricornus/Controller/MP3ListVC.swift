@@ -124,8 +124,3 @@ extension MP3ListVC: UITableViewDelegate, UITableViewDataSource {
     
 }
 
-class MP3ListCell: UITableViewCell {
-    
-    @IBOutlet weak var labelFileName: UILabel!
-    
-}

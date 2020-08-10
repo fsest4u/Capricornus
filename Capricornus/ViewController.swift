@@ -19,12 +19,12 @@ class ViewController: UIViewController {
 
     @IBAction func onClick_BtnSTT(_ sender: UIButton) {
 //        print("onClick_BtnSTT")
-        Util.displayPopup(uvc: self, title: "안내", message: "준비 중입니다.")
+        Util.moveSTT(vc: self)
         
     }
     
     @IBAction func onClick_BtnTTS(_ sender: UIButton) {
-        print("onClick_BtnTTS")
+//        print("onClick_BtnTTS")
         Util.moveTTS(vc: self)
 
     }

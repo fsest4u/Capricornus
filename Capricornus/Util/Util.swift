@@ -68,10 +68,19 @@ class Util {
         
     }
     
-    static func moveSTT(vc: UIViewController, index: Int) {
+    static func moveSTT(vc: UIViewController) {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let uvc = storyboard.instantiateViewController(withIdentifier: "STTVC") as? STTVC {
+            uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
+            vc.navigationController?.pushViewController(uvc, animated: true)
+        }
+    }
+    
+    static func moveRecorite(vc: UIViewController, index: Int) {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let uvc = storyboard.instantiateViewController(withIdentifier: "RecoriteVC") as? RecoriteVC {
             uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
             sttPlatformType = STTPlatformType(rawValue: index) ?? STTPlatformType.NAVER
             vc.navigationController?.pushViewController(uvc, animated: true)
@@ -83,7 +92,6 @@ class Util {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let uvc = storyboard.instantiateViewController(withIdentifier: "TTSVC") as? TTSVC {
             uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
-//            platformType = PlatformType(rawValue: index) ?? PlatformType.NAVER_CSS
             vc.navigationController?.pushViewController(uvc, animated: true)
         }
     }

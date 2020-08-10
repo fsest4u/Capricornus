@@ -63,8 +63,3 @@ extension TTSVC: UITableViewDataSource, UITableViewDelegate {
     
 }
 
-class PlatformCell: UITableViewCell {
-    
-    @IBOutlet weak var imageViewPlatform: UIImageView!
-    @IBOutlet weak var labelPlatform: UILabel!
-}
