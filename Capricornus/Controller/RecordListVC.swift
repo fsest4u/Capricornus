@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class RecordListVC: UIViewController, AVAudioRecorderDelegate {
+class RecordListVC: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDelegate {
 
     @IBOutlet weak var viewRecord: UIView! {
            
@@ -29,6 +29,9 @@ class RecordListVC: UIViewController, AVAudioRecorderDelegate {
     var arrFile: [String]?
     
     var filename: String?
+    
+    var naver = Naver()
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,7 +87,7 @@ class RecordListVC: UIViewController, AVAudioRecorderDelegate {
     
     func checkFileSize(dirURL: URL, filename: String) {
         
-        let fileURL = (dirURL.appendingPathComponent(filename))
+        let fileURL = dirURL.appendingPathComponent(filename)
         UtilFile.checkFileSize(fileURL: fileURL)
     }
     
@@ -94,6 +97,14 @@ class RecordListVC: UIViewController, AVAudioRecorderDelegate {
         
         let fileURL = dirURL.appendingPathComponent(filename)
         UtilAudio.recordMP3(uvc: self, fileURL: fileURL)
+    }
+
+    func playMP3(dirURL: URL, filename: String) {
+        
+//        deleteMP3(dirURL: dirURL, filename: filename)
+        
+        let fileURL = dirURL.appendingPathComponent(filename)
+        UtilAudio.playMP3(uvc: self, fileURL: fileURL)
     }
     
     func stopToPlay() {
@@ -132,10 +143,10 @@ extension RecordListVC: UITableViewDelegate, UITableViewDataSource {
         let curCell = tableView.cellForRow(at: indexPath) as! PlayListCell
         let filename = curCell.labelFileName.text ?? ""
         self.filename = filename
-//        debugPlaySample()
-//        debugCheckFileSize(filename: filename)
-        checkFileSize(dirURL: dirURL!, filename: filename)
-//        playMP3(dirURL: dirURL!, filename: filename)
+
+        naver.uvc = self
+        let fileURL = (dirURL?.appendingPathComponent(filename))!
+        naver.doNaverCSR(fileURL: fileURL)
         
     }
     

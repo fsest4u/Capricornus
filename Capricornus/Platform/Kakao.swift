@@ -26,7 +26,7 @@ class Kakao {
         let fileManager = FileManager.default
         if fileManager.fileExists(atPath: fileURL?.path ?? "") {
             if DEBUG_MODE {
-                Util.moveMP3List(vc: uvc ?? UIViewController(), dirname: arrTTSPlatform[ttsPlatformType.rawValue])
+                Util.movePlayList(vc: uvc ?? UIViewController(), dirname: arrTTSPlatform[ttsPlatformType.rawValue])
             }
             else {
                 UtilAudio.playMP3(uvc: uvc as! AVAudioPlayerDelegate, fileURL: fileURL!)
@@ -60,16 +60,12 @@ class Kakao {
 
                 if message?.isEmpty ?? true {
                     // 입력데이타를 파일로 저장
-                    do {
-                        try data.write(to: (self?.fileURL)!)
-                        
-                    } catch {
-                        print("Something went wrong!")
-                    }
+                    UtilFile.writeFile(fileURL: (self?.fileURL)!, data: data)
+
                     
                     if DEBUG_MODE {
                         // move to vc of mp3 list
-                        Util.moveMP3List(vc: self?.uvc ?? UIViewController(), dirname: arrTTSPlatform[ttsPlatformType.rawValue])
+                        Util.movePlayList(vc: self?.uvc ?? UIViewController(), dirname: arrTTSPlatform[ttsPlatformType.rawValue])
                     }
                     else {
                         // play mp3

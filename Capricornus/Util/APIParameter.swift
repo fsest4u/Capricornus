@@ -24,7 +24,7 @@ class APIParameter {
         
     }
 
-    static func getNaverHeaderItem() -> Dictionary<String, String> {
+    static func getNaverTTSHeaderItem() -> Dictionary<String, String> {
                 
         var header: [String: String] = Dictionary<String, String>()
         
@@ -36,6 +36,18 @@ class APIParameter {
         
     }
     
+    static func getNaverSTTHeaderItem() -> Dictionary<String, String> {
+                
+        var header: [String: String] = Dictionary<String, String>()
+        
+        header[PARAM_NAME_NAVER_CONTENT_TYPE] = PARAM_VALUE_NAVER_STT_CONTENT_TYPE
+        header[PARAM_NAME_NAVER_API_ID] = PARAM_VALUE_NAVER_CLIENT_ID
+        header[PARAM_NAME_NAVER_API_KEY] = PARAM_VALUE_NAVER_CLIENT_SECRET
+          
+        return header
+        
+    }
+
     static func getKakaoHeaderItem() -> Dictionary<String, String> {
                 
         var header: [String: String] = Dictionary<String, String>()
@@ -92,6 +104,38 @@ class APIParameter {
         param[PARAM_NAME_NAVER_FORMAT] = format
 
         return param
+    }
+    
+    static func postNaverCSR(content: Data, header: HTTPHeaders) -> URLRequest? {
+        
+        var queryItems = getBaseQueryItem()
+
+        queryItems.append(NSURLQueryItem(name: PARAM_NAME_NAVER_LANG, value: PARAM_VALUE_NAVER_LANG))
+
+        guard let urlComps = NSURLComponents(string: API_PATH_NAVER_HOST + API_PATH_NAVER_CSR) else {
+            return nil
+        }
+        
+        urlComps.queryItems = queryItems as [URLQueryItem]
+//        urlComps.replacingPlus()
+        
+        guard let url = urlComps.url else{
+            return nil
+            
+        }
+        var request: URLRequest?
+        do {
+            request = try URLRequest(url: url, method: .post, headers: header)
+//            request?.httpMethod = "POST"
+//            request?.httpBody = content.data(using: .utf8)
+            request?.httpBody = content
+        }
+        catch {
+            print("Error postKakao URLRequest")
+        }
+
+        
+        return request
     }
     
 //    static func postKakao(content: String) -> Dictionary<String, Any> {

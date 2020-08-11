@@ -26,7 +26,7 @@ class Naver {
         let fileManager = FileManager.default
         if fileManager.fileExists(atPath: fileURL?.path ?? "") {
             if DEBUG_MODE {
-                Util.moveMP3List(vc: uvc ?? UIViewController(), dirname: arrTTSPlatform[ttsPlatformType.rawValue])
+                Util.movePlayList(vc: uvc ?? UIViewController(), dirname: arrTTSPlatform[ttsPlatformType.rawValue])
             }
             else {
                 UtilAudio.playMP3(uvc: uvc as! AVAudioPlayerDelegate, fileURL: fileURL!)
@@ -46,7 +46,7 @@ class Naver {
         let fileManager = FileManager.default
         if fileManager.fileExists(atPath: fileURL?.path ?? "") {
             if DEBUG_MODE {
-                Util.moveMP3List(vc: uvc ?? UIViewController(), dirname: arrTTSPlatform[ttsPlatformType.rawValue])
+                Util.movePlayList(vc: uvc ?? UIViewController(), dirname: arrTTSPlatform[ttsPlatformType.rawValue])
             }
             else {
                 UtilAudio.playMP3(uvc: uvc as! AVAudioPlayerDelegate, fileURL: fileURL!)
@@ -59,10 +59,65 @@ class Naver {
         }
     }
     
+    func doNaverCSR(fileURL: URL) {
+        
+        UtilFile.checkFileURL(url: fileURL)
+        
+        // temp_code
+        if false {//DEBUG_MODE {
+            UtilAudio.playMP3(uvc: uvc as! AVAudioPlayerDelegate, fileURL: fileURL)
+
+        }
+        else {
+            let content = UtilFile.readFile(fileURL: fileURL)
+            uploadNaverCSR(content: content)
+        }
+    }
+    
+    func uploadNaverCSR(content: Data) {
+        
+        let header = APIParameter.getNaverSTTHeaderItem()
+        
+        guard let url = APIParameter.postNaverCSR(content: content, header: header) else{
+            return
+        }
+        
+        //        LoadingHUD.show()
+        APIService.request(urlrequest: url)
+            //            .filter{AppServiceErrorCode.checkData(vc: self, data: $0)}
+            .subscribe(onNext: {
+                [weak self] data in
+                
+                print("data : \(String(decoding: data, as: UTF8.self))")
+                
+                let dataJson = JSON(data)
+
+                if dataJson["error"].isEmpty {
+                
+                    let message = dataJson["text"].string ?? "임시값"
+                    Util.displayPopup(uvc: self?.uvc ?? UIViewController(), title: "Success", message: message ?? "텍스트 변환 성공")
+
+                }
+                else {
+                    // popup
+                    let message = dataJson["msg"].string ?? "에러발생"
+                    Util.displayPopup(uvc: self?.uvc ?? UIViewController(), title: "Error", message: message)
+                    
+                }
+                
+                },onError: {
+                    error in
+                    
+            },onCompleted: {
+                //                    LoadingHUD.hide()
+            }).disposed(by: self.disposeBag)
+        
+    }
+    
     func downloadNaverCSS(content: String, speaker: String, speed: Int = 0) {
         
         print("downloadNaverCSS content: \(content)")
-        let header = APIParameter.getNaverHeaderItem()
+        let header = APIParameter.getNaverTTSHeaderItem()
         let param = APIParameter.postNaverCSS(content: content, speaker: speaker, speed: speed)
         
         guard let urlComps = NSURLComponents(string: API_PATH_NAVER_HOST + API_PATH_NAVER_CSS) else{
@@ -84,16 +139,12 @@ class Naver {
                 let dataJson = JSON(data)
                 if dataJson["error"].isEmpty {
                     // 입력데이타를 파일로 저장
-                    do {
-                        try data.write(to: (self?.fileURL)!)
-                        
-                    } catch {
-                        print("Something went wrong!")
-                    }
+                    
+                    UtilFile.writeFile(fileURL: (self?.fileURL)!, data: data)
                     
                     if DEBUG_MODE {
                         // move to vc of mp3 list
-                        Util.moveMP3List(vc: self?.uvc ?? UIViewController(), dirname: arrTTSPlatform[ttsPlatformType.rawValue])
+                        Util.movePlayList(vc: self?.uvc ?? UIViewController(), dirname: arrTTSPlatform[ttsPlatformType.rawValue])
                     }
                     else {
                         // play mp3
@@ -122,7 +173,7 @@ class Naver {
     func downloadNaverCPV(content: String, speaker: String, speed: Int = 0, volume: Int = 0, pitch: Int = 0, emotion: Int = 0, format: String = "mp3") {
         
         print("downloadNaverCSS content: \(content)")
-        let header = APIParameter.getNaverHeaderItem()
+        let header = APIParameter.getNaverTTSHeaderItem()
         let param = APIParameter.postNaverCPV(content: content, speaker: speaker, speed: speed, volume: volume, pitch: pitch, emotion: emotion, format: format)
         
         guard let urlComps = NSURLComponents(string: API_PATH_NAVER_HOST + API_PATH_NAVER_CPV) else{
@@ -153,7 +204,7 @@ class Naver {
                     
                     if DEBUG_MODE {
                         // move to vc of mp3 list
-                        Util.moveMP3List(vc: self?.uvc ?? UIViewController(), dirname: arrTTSPlatform[ttsPlatformType.rawValue])
+                        Util.movePlayList(vc: self?.uvc ?? UIViewController(), dirname: arrTTSPlatform[ttsPlatformType.rawValue])
                     }
                     else {
                         // play mp3

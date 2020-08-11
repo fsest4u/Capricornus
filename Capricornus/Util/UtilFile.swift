@@ -48,17 +48,6 @@ class UtilFile {
         return fileManager.fileExists(atPath: url.path)
         
     }
-
-    static func deleteFile(fileURL: URL) {
-        print("deleteFile file \(fileURL.path)")
-        let fileManager = FileManager.default
-        do {
-            try fileManager.removeItem(at: fileURL)
-        }
-        catch let error as NSError {
-            print("Error deleteFile error : \(error)")
-        }
-    }
     
     static func checkFileSize(fileURL: URL) {
 
@@ -71,6 +60,41 @@ class UtilFile {
         } catch {
             print("Error checkFileSize \(fileURL.path)")
             
+        }
+    }
+    
+    static func writeFile(fileURL: URL, data: Data) {
+
+        do {
+            try data.write(to: fileURL)
+            
+        } catch {
+            print("Error writeFile \(fileURL.path)")
+        }
+        
+    }
+    
+    static func readFile(fileURL: URL) -> Data {
+        
+        var data: Data
+        do {
+            data = try Data(contentsOf: fileURL)
+        } catch {
+            print("Error readFile \(fileURL.path)")
+            return Data()
+        }
+        
+        return data
+    }
+    
+    static func deleteFile(fileURL: URL) {
+        print("deleteFile file \(fileURL.path)")
+        let fileManager = FileManager.default
+        do {
+            try fileManager.removeItem(at: fileURL)
+        }
+        catch let error as NSError {
+            print("Error deleteFile error : \(error)")
         }
     }
 }

@@ -70,7 +70,7 @@ class Util {
         }
     }
     
-    static func moveMP3List(vc: UIViewController, dirname: String) {
+    static func movePlayList(vc: UIViewController, dirname: String) {
         
         let dirURL = UtilFile.getDirURL(dirname: dirname)
         

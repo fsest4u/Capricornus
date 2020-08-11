@@ -54,6 +54,7 @@ let PARAM_VALUE_NAVER_TTS_CONTENT_TYPE = "application/x-www-form-urlencoded"
 let PARAM_VALUE_NAVER_STT_CONTENT_TYPE = "application/octet-stream"
 let PARAM_VALUE_NAVER_CLIENT_ID = "awolaeoidn"
 let PARAM_VALUE_NAVER_CLIENT_SECRET = "V0ey9lXGi6qPTyJ9weY9w2afbMmTohsKBYud16oJ"
+let PARAM_VALUE_NAVER_LANG = "Kor"
 
 let PARAM_NAME_NAVER_TEXT = "text"
 let PARAM_NAME_NAVER_SPEAKER = "speaker"
@@ -62,6 +63,7 @@ let PARAM_NAME_NAVER_VOLUME = "volume"
 let PARAM_NAME_NAVER_PITCH = "pitch"
 let PARAM_NAME_NAVER_EMOTION = "emotion"
 let PARAM_NAME_NAVER_FORMAT = "format"
+let PARAM_NAME_NAVER_LANG = "lang"
 
 
 
@@ -200,15 +202,16 @@ let arrSTTPlatform = [
 
 let API_PATH_NAVER_CSR = "/recog/v1/stt"
 
-// mp3, aac, ac3, ogg, flac, wav
-
+// 출처: https://abc1211.tistory.com/411 [길위의 개발자]
+// 지원포맷 : mp3, aac, ac3, ogg, flac, wav
+// 음질은 최대, 비트율 320kbps, 오디오 채널은 2, 샘플율은 44,100hz
 let RECORD_SETTING = [
     
     AVFormatIDKey : NSNumber(value : kAudioFormatAppleLossless as UInt32),
-    AVEncoderAudioQualityKey : AVAudioQuality.high.rawValue,
-    AVEncoderBitRateKey : 16,
-    AVNumberOfChannelsKey : 1,
-    AVSampleRateKey : 12000
+    AVEncoderAudioQualityKey : AVAudioQuality.max.rawValue,
+    AVEncoderBitRateKey : 320000,
+    AVNumberOfChannelsKey : 2,
+    AVSampleRateKey : 44100
     
 ] as [String : Any]
 

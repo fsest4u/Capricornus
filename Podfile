@@ -20,6 +20,9 @@ target 'Capricornus' do
   # Popup
   pod 'PopupDialog', '~> 1.1'
 
+  # Google
+  pod 'Firebase/Analytics'
+
   target 'CapricornusTests' do
     inherit! :search_paths
     # Pods for testing
