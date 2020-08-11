@@ -23,7 +23,8 @@ class UtilAudio {
             audioPlayer?.delegate = uvc
             audioPlayer?.prepareToPlay()
             audioPlayer?.play()
-            
+            print("start play")
+
         }
         catch let error as NSError {
             print("Error playMP3 file \(fileURL.path), error : \(error)")
@@ -33,7 +34,15 @@ class UtilAudio {
     static func stopToPlay() {
         
         do {
-            audioPlayer?.stop()
+            if audioRecorder != nil {
+                print("stop to record")
+                audioRecorder?.stop()
+                audioRecorder = nil
+            }
+            else {
+                print("stop to play")
+                audioPlayer?.stop()
+            }
         }
         catch let error as NSError {
             print("Error stopToPlay file ")
@@ -54,21 +63,12 @@ class UtilAudio {
                 audioRecorder?.delegate = uvc
     //            audioRecorder?.prepareToRecord()
                 audioRecorder?.record()
+                print("start record")
             }
             
         }
         catch let error as NSError {
             print("Error recordMP3 file \(fileURL.path), error : \(error)")
-        }
-    }
-    static func stopToRecord() {
-
-        do {
-            audioRecorder?.stop()
-            audioRecorder = nil
-        }
-        catch let error as NSError {
-            print("Error stopRecord file")
         }
     }
 

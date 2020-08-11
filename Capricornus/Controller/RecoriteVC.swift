@@ -1,5 +1,5 @@
 //
-//  STTVC.swift
+//  RecordListVC.swift
 //  Capricornus
 //
 //  Created by 이동윤 on 2020/08/07.
@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class RecoriteVC: UIViewController, AVAudioRecorderDelegate {
+class RecordListVC: UIViewController, AVAudioRecorderDelegate {
 
     @IBOutlet weak var viewRecord: UIView! {
            
@@ -21,7 +21,12 @@ class RecoriteVC: UIViewController, AVAudioRecorderDelegate {
         
     }
     
+    @IBOutlet weak var tableView: UITableView!
+    
+    
     var dirURL: URL?
+    
+    var arrFile: [String]?
     
     var filename: String?
 
@@ -29,6 +34,7 @@ class RecoriteVC: UIViewController, AVAudioRecorderDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        getFileList()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -51,7 +57,8 @@ class RecoriteVC: UIViewController, AVAudioRecorderDelegate {
         
         sender.isSelected = !sender.isSelected
         if sender.isSelected {
-            recordMP3(dirURL: dirURL!, filename: "test.m4a")
+            let filename = Util.getCurrentDate() + ".m4a"
+            recordMP3(dirURL: dirURL!, filename: filename)
             
         }
         else {
@@ -59,18 +66,41 @@ class RecoriteVC: UIViewController, AVAudioRecorderDelegate {
         }
     }
     
+    func getFileList() {
+        
+        do {
+            guard let url = dirURL else {
+                return
+            }
+            let path = url.path
+            let fileManager = FileManager.default
+            arrFile = try fileManager.contentsOfDirectory(atPath: path)
+            
+        } catch let error as NSError {
+            print("Error access directory : \(error)")
+        }
+        
+    }
+    
+    func checkFileSize(dirURL: URL, filename: String) {
+        
+        let fileURL = (dirURL.appendingPathComponent(filename))
+        UtilFile.checkFileSize(fileURL: fileURL)
+    }
+    
     func recordMP3(dirURL: URL, filename: String) {
         
         deleteMP3(dirURL: dirURL, filename: filename)
         
-        print("start record...")
         let fileURL = dirURL.appendingPathComponent(filename)
         UtilAudio.recordMP3(uvc: self, fileURL: fileURL)
     }
     
     func stopToPlay() {
-        print("stop record...")
-        UtilAudio.stopToRecord()
+
+        UtilAudio.stopToPlay()
+        getFileList()
+        tableView.reloadData()
     }
     
     func deleteMP3(dirURL: URL, filename: String) {
@@ -80,4 +110,48 @@ class RecoriteVC: UIViewController, AVAudioRecorderDelegate {
         
     }
     
+}
+
+extension RecordListVC: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return arrFile?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PlayListCell", for: indexPath) as! PlayListCell
+        
+        cell.labelFileName.text = arrFile?[indexPath.row]
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let curCell = tableView.cellForRow(at: indexPath) as! PlayListCell
+        let filename = curCell.labelFileName.text ?? ""
+        self.filename = filename
+//        debugPlaySample()
+//        debugCheckFileSize(filename: filename)
+        checkFileSize(dirURL: dirURL!, filename: filename)
+//        playMP3(dirURL: dirURL!, filename: filename)
+        
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+
+            let curCell = tableView.cellForRow(at: indexPath) as! PlayListCell
+            let filename = curCell.labelFileName.text ?? ""
+            deleteMP3(dirURL: dirURL!, filename: filename)
+            
+            arrFile?.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
 }

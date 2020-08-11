@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class MP3ListCell: UITableViewCell {
+class PlayListCell: UITableViewCell {
     
     @IBOutlet weak var labelFileName: UILabel!
     

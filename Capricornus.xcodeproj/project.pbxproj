@@ -21,7 +21,7 @@
 		1737E35F24DA2B9800A19E5E /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1737E35E24DA2B9800A19E5E /* Extension.swift */; };
 		1737E36124DA2C9300A19E5E /* APIParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1737E36024DA2C9300A19E5E /* APIParameter.swift */; };
 		1737E36324DA5E8200A19E5E /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1737E36224DA5E8200A19E5E /* Util.swift */; };
-		1737E36524DA6ECE00A19E5E /* MP3ListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1737E36424DA6ECE00A19E5E /* MP3ListVC.swift */; };
+		1737E36524DA6ECE00A19E5E /* PlayListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1737E36424DA6ECE00A19E5E /* PlayListVC.swift */; };
 		1737E36724DA982A00A19E5E /* sample.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 1737E36624DA982A00A19E5E /* sample.mp3 */; };
 		17771C0D24E113E000FB2B14 /* TextListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17771C0C24E113E000FB2B14 /* TextListVC.swift */; };
 		17771C0F24E11C5900FB2B14 /* STTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17771C0E24E11C5900FB2B14 /* STTVC.swift */; };
@@ -76,7 +76,7 @@
 		1737E35E24DA2B9800A19E5E /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		1737E36024DA2C9300A19E5E /* APIParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIParameter.swift; sourceTree = "<group>"; };
 		1737E36224DA5E8200A19E5E /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
-		1737E36424DA6ECE00A19E5E /* MP3ListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MP3ListVC.swift; sourceTree = "<group>"; };
+		1737E36424DA6ECE00A19E5E /* PlayListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayListVC.swift; sourceTree = "<group>"; };
 		1737E36624DA982A00A19E5E /* sample.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sample.mp3; sourceTree = "<group>"; };
 		17771C0C24E113E000FB2B14 /* TextListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextListVC.swift; sourceTree = "<group>"; };
 		17771C0E24E11C5900FB2B14 /* STTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = STTVC.swift; sourceTree = "<group>"; };
@@ -203,7 +203,7 @@
 				C3A294F924DD619D0007D109 /* RecoriteVC.swift */,
 				1737E35724D93FBE00A19E5E /* TTSVC.swift */,
 				17771C0C24E113E000FB2B14 /* TextListVC.swift */,
-				1737E36424DA6ECE00A19E5E /* MP3ListVC.swift */,
+				1737E36424DA6ECE00A19E5E /* PlayListVC.swift */,
 				17771C1124E11FBD00FB2B14 /* CustomCell.swift */,
 			);
 			path = Controller;
@@ -494,7 +494,7 @@
 				C36A339C24DCDCB200E6ECA5 /* Kakao.swift in Sources */,
 				1737E35F24DA2B9800A19E5E /* Extension.swift in Sources */,
 				17771C1424E1201400FB2B14 /* UtilFile.swift in Sources */,
-				1737E36524DA6ECE00A19E5E /* MP3ListVC.swift in Sources */,
+				1737E36524DA6ECE00A19E5E /* PlayListVC.swift in Sources */,
 				1737E32724D93CD000A19E5E /* AppDelegate.swift in Sources */,
 				17771C0F24E11C5900FB2B14 /* STTVC.swift in Sources */,
 				C36A339E24DD09C100E6ECA5 /* Google.swift in Sources */,

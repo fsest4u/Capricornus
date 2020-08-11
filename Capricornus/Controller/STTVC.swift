@@ -47,7 +47,6 @@ extension STTVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let index = indexPath.row
-        //temp_code, arrTTSPlatform -> arrSTTPlatform
-        Util.moveRecorite(vc: self, index: index, dirname: arrTTSPlatform[index])
+        Util.moveRecorite(vc: self, index: index, dirname: arrSTTPlatform[index])
     }
 }

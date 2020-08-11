@@ -185,13 +185,13 @@ let arrGoogleContent = [
 
 enum STTPlatformType: Int {
     
-    case NAVER
+    case NAVER_CSR
 
 }
-var sttPlatformType = STTPlatformType.NAVER
+var sttPlatformType = STTPlatformType.NAVER_CSR
 
 let arrSTTPlatform = [
-    "Naver"
+    "Naver_CSR"
 ]
 
 //------------------------------

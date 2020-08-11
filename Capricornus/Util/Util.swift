@@ -43,9 +43,9 @@ class Util {
         let dirURL = UtilFile.getDirURL(dirname: dirname)
 
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let uvc = storyboard.instantiateViewController(withIdentifier: "RecoriteVC") as? RecoriteVC {
+        if let uvc = storyboard.instantiateViewController(withIdentifier: "RecordListVC") as? RecordListVC {
             uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
-            sttPlatformType = STTPlatformType(rawValue: index) ?? STTPlatformType.NAVER
+            sttPlatformType = STTPlatformType(rawValue: index) ?? STTPlatformType.NAVER_CSR
             uvc.dirURL = dirURL
             vc.navigationController?.pushViewController(uvc, animated: true)
         }
@@ -75,7 +75,7 @@ class Util {
         let dirURL = UtilFile.getDirURL(dirname: dirname)
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let uvc = storyboard.instantiateViewController(withIdentifier: "MP3ListVC") as? MP3ListVC {
+        if let uvc = storyboard.instantiateViewController(withIdentifier: "PlayListVC") as? PlayListVC {
             uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
             uvc.dirURL = dirURL
             vc.navigationController?.pushViewController(uvc, animated: true)

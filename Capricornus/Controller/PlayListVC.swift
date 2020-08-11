@@ -1,5 +1,5 @@
 //
-//  MP3ListVC.swift
+//  PlayListVC.swift
 //  Capricornus
 //
 //  Created by spdevapp on 2020/08/05.
@@ -9,16 +9,14 @@
 import UIKit
 import AVFoundation
 
-class MP3ListVC: UIViewController, AVAudioPlayerDelegate {
+class PlayListVC: UIViewController, AVAudioPlayerDelegate {
     
     var dirURL: URL?
     
     var arrFile: [String]?
     
     var filename: String?
-    
-    var audioPlayer: AVAudioPlayer?
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,6 +28,7 @@ class MP3ListVC: UIViewController, AVAudioPlayerDelegate {
             let path = url.path
             let fileManager = FileManager.default
             arrFile = try fileManager.contentsOfDirectory(atPath: path)
+            
         } catch let error as NSError {
             print("Error access directory : \(error)")
         }
@@ -69,7 +68,6 @@ class MP3ListVC: UIViewController, AVAudioPlayerDelegate {
     
     func deleteMP3(dirURL: URL, filename: String) {
         
-        print("delete file :\(filename)")
         let fileURL = (dirURL.appendingPathComponent(filename))
         UtilFile.deleteFile(fileURL: fileURL)
         
@@ -79,7 +77,7 @@ class MP3ListVC: UIViewController, AVAudioPlayerDelegate {
 
 }
 
-extension MP3ListVC: UITableViewDelegate, UITableViewDataSource {
+extension PlayListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return arrFile?.count ?? 0
@@ -87,7 +85,7 @@ extension MP3ListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MP3ListCell", for: indexPath) as! MP3ListCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PlayListCell", for: indexPath) as! PlayListCell
         
         cell.labelFileName.text = arrFile?[indexPath.row]
         
@@ -96,7 +94,7 @@ extension MP3ListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let curCell = tableView.cellForRow(at: indexPath) as! MP3ListCell
+        let curCell = tableView.cellForRow(at: indexPath) as! PlayListCell
         let filename = curCell.labelFileName.text ?? ""
         self.filename = filename
 //        debugPlaySample()
@@ -113,7 +111,7 @@ extension MP3ListVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
 
-            let curCell = tableView.cellForRow(at: indexPath) as! MP3ListCell
+            let curCell = tableView.cellForRow(at: indexPath) as! PlayListCell
             let filename = curCell.labelFileName.text ?? ""
             deleteMP3(dirURL: dirURL!, filename: filename)
             
