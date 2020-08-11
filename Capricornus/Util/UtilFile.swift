@@ -18,6 +18,8 @@ class UtilFile {
         let dirURL = docURL.appendingPathComponent(dirname)
         let dirURLPath = dirURL.path
         
+//        print("getDirURL: \(dirURLPath)")
+        
         if !fileManager.fileExists(atPath: dirURLPath) {
             do {
                 try fileManager.createDirectory(atPath: dirURLPath, withIntermediateDirectories: true, attributes: nil)
@@ -47,16 +49,27 @@ class UtilFile {
         
     }
 
+    static func deleteFile(fileURL: URL) {
+        print("deleteFile file \(fileURL.path)")
+        let fileManager = FileManager.default
+        do {
+            try fileManager.removeItem(at: fileURL)
+        }
+        catch let error as NSError {
+            print("Error deleteFile error : \(error)")
+        }
+    }
+    
     static func checkFileSize(fileURL: URL) {
 
         let fileManager = FileManager.default
         do {
             let attr = try fileManager.attributesOfItem(atPath: fileURL.path)
             let size = attr[FileAttributeKey.size] as! UInt64
-            print("checkFileSize file size : \(size)")
+            print("checkFileSize file size : \(fileURL.path) \(size)")
             
         } catch {
-            print("Error checkFileSize...")
+            print("Error checkFileSize \(fileURL.path)")
             
         }
     }

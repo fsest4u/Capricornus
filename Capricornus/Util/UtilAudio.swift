@@ -13,6 +13,8 @@ import AVFoundation
 class UtilAudio {
 
     static var audioPlayer: AVAudioPlayer?
+    static var audioRecorder: AVAudioRecorder?
+    static var audioSession: AVAudioSession?
 
     static func playMP3(uvc: AVAudioPlayerDelegate, fileURL: URL) {
         
@@ -23,30 +25,50 @@ class UtilAudio {
             audioPlayer?.play()
             
         }
-        catch {
-            print("Error playMP3 file \(fileURL.path)")
+        catch let error as NSError {
+            print("Error playMP3 file \(fileURL.path), error : \(error)")
         }
     }
-
-    static func stopMP3(uvc: AVAudioPlayerDelegate, fileURL: URL) {
+    
+    static func stopToPlay() {
         
         do {
-            audioPlayer = try AVAudioPlayer(contentsOf: fileURL)
-            audioPlayer?.delegate = uvc
             audioPlayer?.stop()
         }
-        catch {
-            print("Error stopMP3 fie \(fileURL.path)")
+        catch let error as NSError {
+            print("Error stopToPlay file ")
         }
     }
 
-    static func deleteMP3(fileURL: URL) {
-        let fileManager = FileManager.default
+    static func recordMP3(uvc: AVAudioRecorderDelegate, fileURL: URL) {
+
+        let audioSession = AVAudioSession.sharedInstance()
         do {
-            try fileManager.removeItem(at: fileURL)
+            try audioSession.setCategory(.playAndRecord, mode: .default)
+            try audioSession.setActive(true)
+            audioSession.requestRecordPermission() {_ in
+                print("ready to record")
+            }
+            if audioRecorder == nil {
+                audioRecorder = try AVAudioRecorder(url: fileURL, settings: RECORD_SETTING)
+                audioRecorder?.delegate = uvc
+    //            audioRecorder?.prepareToRecord()
+                audioRecorder?.record()
+            }
+            
         }
-        catch {
-            print("Error deleteMP3 file \(fileURL.path)")
+        catch let error as NSError {
+            print("Error recordMP3 file \(fileURL.path), error : \(error)")
+        }
+    }
+    static func stopToRecord() {
+
+        do {
+            audioRecorder?.stop()
+            audioRecorder = nil
+        }
+        catch let error as NSError {
+            print("Error stopRecord file")
         }
     }
 
@@ -62,7 +84,7 @@ class UtilAudio {
             audioPlayer?.play()
             
         }
-        catch {
+        catch let error as NSError {
             print("Error debugPlaySample...")
         }
         

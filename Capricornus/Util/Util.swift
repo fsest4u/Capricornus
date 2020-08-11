@@ -38,12 +38,15 @@ class Util {
         }
     }
     
-    static func moveRecorite(vc: UIViewController, index: Int) {
+    static func moveRecorite(vc: UIViewController, index: Int, dirname: String) {
         
+        let dirURL = UtilFile.getDirURL(dirname: dirname)
+
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let uvc = storyboard.instantiateViewController(withIdentifier: "RecoriteVC") as? RecoriteVC {
             uvc.modalTransitionStyle = UIModalTransitionStyle.coverVertical
             sttPlatformType = STTPlatformType(rawValue: index) ?? STTPlatformType.NAVER
+            uvc.dirURL = dirURL
             vc.navigationController?.pushViewController(uvc, animated: true)
         }
     }

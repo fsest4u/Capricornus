@@ -7,8 +7,13 @@
 //
 
 import Foundation
+import AVFoundation
 
 let DEBUG_MODE = true
+
+//------------------------------
+//MARK: TTS
+//------------------------------
 
 enum TTSPlatformType: Int {
     
@@ -34,16 +39,7 @@ let arrTTSPlatform = [
 ]
 
 
-enum STTPlatformType: Int {
-    
-    case NAVER
 
-}
-var sttPlatformType = STTPlatformType.NAVER
-
-let arrSTTPlatform = [
-    "Naver"
-]
 
 //------------------------------
 //MARK: NAVER
@@ -54,7 +50,8 @@ let PARAM_NAME_NAVER_CONTENT_TYPE = "Content-Type"
 let PARAM_NAME_NAVER_API_ID = "X-NCP-APIGW-API-KEY-ID"
 let PARAM_NAME_NAVER_API_KEY = "X-NCP-APIGW-API-KEY"
 
-let PARAM_VALUE_NAVER_CONTENT_TYPE = "application/x-www-form-urlencoded"
+let PARAM_VALUE_NAVER_TTS_CONTENT_TYPE = "application/x-www-form-urlencoded"
+let PARAM_VALUE_NAVER_STT_CONTENT_TYPE = "application/octet-stream"
 let PARAM_VALUE_NAVER_CLIENT_ID = "awolaeoidn"
 let PARAM_VALUE_NAVER_CLIENT_SECRET = "V0ey9lXGi6qPTyJ9weY9w2afbMmTohsKBYud16oJ"
 
@@ -179,3 +176,41 @@ let arrGoogleContent = [
 //------------------------------
 // AWS - Neural Network
 //------------------------------
+
+
+
+//------------------------------
+//MARK: STT
+//------------------------------
+
+enum STTPlatformType: Int {
+    
+    case NAVER
+
+}
+var sttPlatformType = STTPlatformType.NAVER
+
+let arrSTTPlatform = [
+    "Naver"
+]
+
+//------------------------------
+//MARK: Record
+//------------------------------
+
+let API_PATH_NAVER_CSR = "/recog/v1/stt"
+
+// mp3, aac, ac3, ogg, flac, wav
+
+let RECORD_SETTING = [
+    
+    AVFormatIDKey : NSNumber(value : kAudioFormatAppleLossless as UInt32),
+    AVEncoderAudioQualityKey : AVAudioQuality.high.rawValue,
+    AVEncoderBitRateKey : 16,
+    AVNumberOfChannelsKey : 1,
+    AVSampleRateKey : 12000
+    
+] as [String : Any]
+
+
+

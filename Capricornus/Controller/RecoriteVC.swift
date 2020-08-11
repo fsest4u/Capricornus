@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import AVFoundation
 
-class RecoriteVC: UIViewController {
+class RecoriteVC: UIViewController, AVAudioRecorderDelegate {
 
     @IBOutlet weak var viewRecord: UIView! {
            
@@ -20,10 +21,19 @@ class RecoriteVC: UIViewController {
         
     }
     
+    var dirURL: URL?
+    
+    var filename: String?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        stopToPlay()
     }
     
 
@@ -41,12 +51,33 @@ class RecoriteVC: UIViewController {
         
         sender.isSelected = !sender.isSelected
         if sender.isSelected {
-            print("start record...")
+            recordMP3(dirURL: dirURL!, filename: "test.m4a")
             
         }
         else {
-            print("stop record...")
+            stopToPlay()
         }
+    }
+    
+    func recordMP3(dirURL: URL, filename: String) {
+        
+        deleteMP3(dirURL: dirURL, filename: filename)
+        
+        print("start record...")
+        let fileURL = dirURL.appendingPathComponent(filename)
+        UtilAudio.recordMP3(uvc: self, fileURL: fileURL)
+    }
+    
+    func stopToPlay() {
+        print("stop record...")
+        UtilAudio.stopToRecord()
+    }
+    
+    func deleteMP3(dirURL: URL, filename: String) {
+        
+        let fileURL = (dirURL.appendingPathComponent(filename))
+        UtilFile.deleteFile(fileURL: fileURL)
+        
     }
     
 }

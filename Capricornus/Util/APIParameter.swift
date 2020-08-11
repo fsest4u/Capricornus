@@ -28,7 +28,7 @@ class APIParameter {
                 
         var header: [String: String] = Dictionary<String, String>()
         
-        header[PARAM_NAME_NAVER_CONTENT_TYPE] = PARAM_VALUE_NAVER_CONTENT_TYPE
+        header[PARAM_NAME_NAVER_CONTENT_TYPE] = PARAM_VALUE_NAVER_TTS_CONTENT_TYPE
         header[PARAM_NAME_NAVER_API_ID] = PARAM_VALUE_NAVER_CLIENT_ID
         header[PARAM_NAME_NAVER_API_KEY] = PARAM_VALUE_NAVER_CLIENT_SECRET
           
