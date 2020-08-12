@@ -20,7 +20,7 @@ class Kakao {
 
     var disposeBag = DisposeBag()
 
-    func doKakao(arrSpeaker: [String], arrContent: [String], index: Int) {
+    func doKakaoSyn(arrSpeaker: [String], arrContent: [String], index: Int) {
         
         fileURL = UtilFile.getFileURL(dirname: arrTTSPlatform[ttsPlatformType.rawValue], basename: arrSpeaker[index])
         let fileManager = FileManager.default
@@ -39,11 +39,66 @@ class Kakao {
         }
     }
     
+    func doKakaoRec(fileURL: URL) {
+        
+        UtilFile.checkFileURL(url: fileURL)
+        
+        // temp_code
+        if false {//DEBUG_MODE {
+            UtilAudio.playMP3(uvc: uvc as! AVAudioPlayerDelegate, fileURL: fileURL)
+
+        }
+        else {
+            let content = UtilFile.readFile(fileURL: fileURL)
+            uploadKakaoRec(content: content)
+        }
+    }
+    
+    func uploadKakaoRec(content: Data) {
+        
+        let header = APIParameter.getKakaoSTTHeaderItem()
+        
+        guard let url = APIParameter.postKakaoRec(content: content, header: header) else{
+            return
+        }
+        
+        //        LoadingHUD.show()
+        APIService.request(urlrequest: url)
+            //            .filter{AppServiceErrorCode.checkData(vc: self, data: $0)}
+            .subscribe(onNext: {
+                [weak self] data in
+                
+                print("data : \(String(decoding: data, as: UTF8.self))")
+                
+                let dataJson = JSON(data)
+                let message = dataJson["msg"].string
+
+                if message?.isEmpty ?? true {
+                
+                    let message = dataJson["text"].string ?? "임시값"
+                    Util.displayPopup(uvc: self?.uvc ?? UIViewController(), title: "Success", message: message ?? "텍스트 변환 성공")
+
+                }
+                else {
+                    // popup
+                    let message = dataJson["msg"].string ?? "에러발생"
+                    Util.displayPopup(uvc: self?.uvc ?? UIViewController(), title: "Error", message: message)
+                    
+                }
+                
+                },onError: {
+                    error in
+                    
+            },onCompleted: {
+                //                    LoadingHUD.hide()
+            }).disposed(by: self.disposeBag)
+    }
+    
     func downloadKakao(content: String) {
         
         print("downloadKakao content: \(content)")
-        let header = APIParameter.getKakaoHeaderItem()
-        guard let url = APIParameter.postKakao(content: content, header: header) else{
+        let header = APIParameter.getKakaoTTSHeaderItem()
+        guard let url = APIParameter.postKakaoSyn(content: content, header: header) else{
             return
         }
         

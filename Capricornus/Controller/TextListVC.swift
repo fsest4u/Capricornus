@@ -115,7 +115,7 @@ extension TextListVC: UITableViewDelegate, UITableViewDataSource {
             naver.doNaverCPV(arrSpeaker: arrSpeaker, arrContent: arrContent, index: indexRow)
             
         case TTSPlatformType.KAKAO:
-            kakao.doKakao(arrSpeaker: arrSpeaker, arrContent: arrContent, index: indexRow)
+            kakao.doKakaoSyn(arrSpeaker: arrSpeaker, arrContent: arrContent, index: indexRow)
             
         case TTSPlatformType.GOOGLE:
             google.doGoogle(arrSpeaker: arrSpeaker, arrContent: arrContent, index: indexRow)

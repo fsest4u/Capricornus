@@ -32,7 +32,7 @@ var ttsPlatformType = TTSPlatformType.NAVER_CSS
 let arrTTSPlatform = [
     "Naver_CSS"
     , "Naver_CPV"
-    , "Kakao"
+    , "Kakao_SYN"
     , "AWS"
     , "Google"
 //    , "Microsoft"
@@ -104,9 +104,12 @@ let API_PATH_KAKAO_SYN = "/v1/synthesize"
 
 let PARAM_NAME_KAKAO_CONTENT_TYPE = "Content-Type"
 let PARAM_NAME_KAKAO_AUTHORIZATION = "Authorization"
+let PARAM_NAME_KAKAO_ENCODING = "Transfer-Encoding"
 
-let PARAM_VALUE_KAKAO_CONTENT_TYPE = "application/xml"
+let PARAM_VALUE_KAKAO_TTS_CONTENT_TYPE = "application/xml"
+let PARAM_VALUE_KAKAO_STT_CONTENT_TYPE = "application/octet-stream"
 let PARAM_VALUE_KAKAO_AUTHORIZATION = "KakaoAK d3be46c0e606e3b7ecd081da415d3760"
+let PARAM_VALUE_KAKAO_ENCODING = "chunked"
 
 let arrKakaoTitle = ["WOMAN_READ_CALM", "MAN_READ_CALM", "WOMAN_DIALOG_BRIGHT", "MAN_DIALOG_BRIGHT"]
 
@@ -195,19 +198,19 @@ let arrGoogleContent = [
 enum STTPlatformType: Int {
     
     case NAVER_CSR
+    case KAKAO
+    case AWS
+    case GOOGLE
 
 }
 var sttPlatformType = STTPlatformType.NAVER_CSR
 
 let arrSTTPlatform = [
     "Naver_CSR"
+    , "Kakao_REC"
+    , "AWS"
+    , "Google"
 ]
-
-//------------------------------
-//MARK: Record
-//------------------------------
-
-let API_PATH_NAVER_CSR = "/recog/v1/stt"
 
 // 출처: https://abc1211.tistory.com/411 [길위의 개발자]
 // 지원포맷 : mp3, aac, ac3, ogg, flac, wav
@@ -223,4 +226,15 @@ let RECORD_SETTING = [
 ] as [String : Any]
 
 
+//------------------------------
+//MARK: NAVER
+//------------------------------
 
+let API_PATH_NAVER_CSR = "/recog/v1/stt"
+
+
+//------------------------------
+//MARK: KAKAO
+//------------------------------
+
+let API_PATH_KAKAO_REC = "/v1/recognize"

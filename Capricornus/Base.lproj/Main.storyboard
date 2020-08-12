@@ -391,7 +391,7 @@
             </objects>
             <point key="canvasLocation" x="2833" y="824"/>
         </scene>
-        <!--Text to Sppech-->
+        <!--Sppech to Text-->
         <scene sceneID="M0e-Ib-Rr0">
             <objects>
                 <viewController storyboardIdentifier="STTVC" id="D25-yh-HU8" customClass="STTVC" customModule="Capricornus" customModuleProvider="target" sceneMemberID="viewController">
@@ -469,7 +469,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="rh3-uB-obu"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Text to Sppech" id="rlN-Pi-oWI">
+                    <navigationItem key="navigationItem" title="Sppech to Text" id="rlN-Pi-oWI">
                         <barButtonItem key="backBarButtonItem" title="뒤로" id="Ty5-ZF-oay"/>
                     </navigationItem>
                 </viewController>

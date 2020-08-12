@@ -31,6 +31,7 @@ class RecordListVC: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDele
     var filename: String?
     
     var naver = Naver()
+    var kakao = Kakao()
 
 
     override func viewDidLoad() {
@@ -121,6 +122,8 @@ class RecordListVC: UIViewController, AVAudioPlayerDelegate, AVAudioRecorderDele
         
     }
     
+    
+    
 }
 
 extension RecordListVC: UITableViewDelegate, UITableViewDataSource {
@@ -143,11 +146,23 @@ extension RecordListVC: UITableViewDelegate, UITableViewDataSource {
         let curCell = tableView.cellForRow(at: indexPath) as! PlayListCell
         let filename = curCell.labelFileName.text ?? ""
         self.filename = filename
-
-        naver.uvc = self
         let fileURL = (dirURL?.appendingPathComponent(filename))!
-        naver.doNaverCSR(fileURL: fileURL)
         
+        switch sttPlatformType {
+        case STTPlatformType.NAVER_CSR:
+            naver.uvc = self
+            naver.doNaverCSR(fileURL: fileURL)
+        case STTPlatformType.KAKAO:
+            print("Kakao")
+            kakao.uvc = self
+            kakao.doKakaoRec(fileURL: fileURL)
+        case STTPlatformType.AWS:
+            print("준비 중...")
+            
+        case STTPlatformType.GOOGLE:
+            print("준비 중...")
+        }
+
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

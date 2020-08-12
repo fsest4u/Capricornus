@@ -48,12 +48,24 @@ class APIParameter {
         
     }
 
-    static func getKakaoHeaderItem() -> Dictionary<String, String> {
+    static func getKakaoTTSHeaderItem() -> Dictionary<String, String> {
                 
         var header: [String: String] = Dictionary<String, String>()
         
-        header[PARAM_NAME_KAKAO_CONTENT_TYPE] = PARAM_VALUE_KAKAO_CONTENT_TYPE
+        header[PARAM_NAME_KAKAO_CONTENT_TYPE] = PARAM_VALUE_KAKAO_TTS_CONTENT_TYPE
         header[PARAM_NAME_KAKAO_AUTHORIZATION] = PARAM_VALUE_KAKAO_AUTHORIZATION
+          
+        return header
+        
+    }
+    
+    static func getKakaoSTTHeaderItem() -> Dictionary<String, String> {
+                
+        var header: [String: String] = Dictionary<String, String>()
+        
+        header[PARAM_NAME_KAKAO_CONTENT_TYPE] = PARAM_VALUE_KAKAO_TTS_CONTENT_TYPE
+        header[PARAM_NAME_KAKAO_AUTHORIZATION] = PARAM_VALUE_KAKAO_AUTHORIZATION
+        header[PARAM_NAME_KAKAO_ENCODING] = PARAM_VALUE_KAKAO_ENCODING
           
         return header
         
@@ -152,7 +164,7 @@ class APIParameter {
 //        return param
 //    }
     
-    static func postKakao(content: String, header: HTTPHeaders) -> URLRequest? {
+    static func postKakaoSyn(content: String, header: HTTPHeaders) -> URLRequest? {
         
         var queryItems = getBaseQueryItem()
 
@@ -172,6 +184,38 @@ class APIParameter {
             request = try URLRequest(url: url, method: .post, headers: header)
 //            request?.httpMethod = "POST"
             request?.httpBody = content.data(using: .utf8)
+        }
+        catch {
+            print("Error postKakao URLRequest")
+        }
+
+        
+        return request
+    }
+    
+    static func postKakaoRec(content: Data, header: HTTPHeaders) -> URLRequest? {
+            
+        var queryItems = getBaseQueryItem()
+
+//        queryItems.append(NSURLQueryItem(name: PARAM_NAME_NAVER_LANG, value: PARAM_VALUE_NAVER_LANG))
+
+        guard let urlComps = NSURLComponents(string: API_PATH_KAKAO_HOST + API_PATH_KAKAO_REC) else {
+            return nil
+        }
+        
+        urlComps.queryItems = queryItems as [URLQueryItem]
+//        urlComps.replacingPlus()
+        
+        guard let url = urlComps.url else{
+            return nil
+            
+        }
+        var request: URLRequest?
+        do {
+            request = try URLRequest(url: url, method: .post, headers: header)
+//            request?.httpMethod = "POST"
+//            request?.httpBody = content.data(using: .utf8)
+            request?.httpBody = content
         }
         catch {
             print("Error postKakao URLRequest")
