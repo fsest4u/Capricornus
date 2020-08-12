@@ -11,6 +11,7 @@ import AVFoundation
 import RxSwift
 import SwiftyJSON
 import Alamofire
+
 class TextListVC: UIViewController , AVAudioPlayerDelegate {
     
     var indexRow = 0
@@ -23,6 +24,7 @@ class TextListVC: UIViewController , AVAudioPlayerDelegate {
     
     var naver = Naver()
     var kakao = Kakao()
+    var amazon = Amazon()
     var google = Google()
     
     var disposeBag = DisposeBag()
@@ -66,6 +68,11 @@ class TextListVC: UIViewController , AVAudioPlayerDelegate {
             arrTitle = arrKakaoTitle
             arrSpeaker = arrKakaoTitle
             arrContent = arrKakaoContent
+        case TTSPlatformType .AWS:
+            amazon.uvc = self
+            arrTitle = arrAWSTitle
+            arrSpeaker = arrAWSSpeaker
+            arrContent = arrAWSContent
         case TTSPlatformType .GOOGLE:
             google.uvc = self
             arrTitle = arrGoogleTitle
@@ -114,7 +121,7 @@ extension TextListVC: UITableViewDelegate, UITableViewDataSource {
             google.doGoogle(arrSpeaker: arrSpeaker, arrContent: arrContent, index: indexRow)
             
         case TTSPlatformType.AWS:
-            print("type AWS")
+            amazon.doAmazon(arrContent: arrContent, index: indexRow)
             
 //        case PlatformType.MICROSOFT:
 //            print("type MICROSOFT")

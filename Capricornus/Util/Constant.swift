@@ -20,8 +20,9 @@ enum TTSPlatformType: Int {
     case NAVER_CSS
     case NAVER_CPV
     case KAKAO
-    case GOOGLE
     case AWS
+    case GOOGLE
+
 //    case MICROSOFT
 //    case IBM
 
@@ -32,8 +33,8 @@ let arrTTSPlatform = [
     "Naver_CSS"
     , "Naver_CPV"
     , "Kakao"
-    , "Google"
     , "AWS"
+    , "Google"
 //    , "Microsoft"
 //    , "IBM"
 ]
@@ -132,6 +133,23 @@ let arrKakaoContent = [
 """
 ]
 
+
+//------------------------------
+//MARK: AWS - General
+//------------------------------
+let arrAWSTitle = ["한국어, 여자"]
+let arrAWSSpeaker = ["seoyeon"]
+
+let arrAWSContent = [
+    "대체 무슨 말인지.'뭐야, 이 아저씨는.' 그리고 대체 누구인지. 굳은 머리로 곰곰이 생각해봤지만 모르겠다. 이 정도로 일상 회화를 주고 받을 만한 인간이 최근에는 없었다."
+]
+
+
+//------------------------------
+// AWS - Neural Network - does not support Korean
+//------------------------------
+
+
 //------------------------------
 //MARK: Google - General
 //------------------------------
@@ -167,17 +185,6 @@ let arrGoogleContent = [
 }
 """
 ]
-
-
-//------------------------------
-//MARK: AWS - General
-//------------------------------
-
-
-
-//------------------------------
-// AWS - Neural Network
-//------------------------------
 
 
 

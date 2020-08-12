@@ -28,6 +28,8 @@
 		17771C1224E11FBD00FB2B14 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17771C1124E11FBD00FB2B14 /* CustomCell.swift */; };
 		17771C1424E1201400FB2B14 /* UtilFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17771C1324E1201400FB2B14 /* UtilFile.swift */; };
 		17771C1624E122E300FB2B14 /* UtilAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17771C1524E122E300FB2B14 /* UtilAudio.swift */; };
+		17771C1C24E36B5A00FB2B14 /* Amazon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17771C1B24E36B5A00FB2B14 /* Amazon.swift */; };
+		17771C1E24E3C5A300FB2B14 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 17771C1D24E3C5A300FB2B14 /* awsconfiguration.json */; };
 		3E0D0E35FDFB4F2B3D0B08F5 /* Pods_Capricornus_CapricornusUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3116513D45BF33073328302 /* Pods_Capricornus_CapricornusUITests.framework */; };
 		402FCB3ADDBDAC915CACBDEE /* Pods_Capricornus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BC485F1A67AD04FDB62AD7B /* Pods_Capricornus.framework */; };
 		4AAA0F76A1EE42186628CE5B /* Pods_CapricornusTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E429000F326A6EE8CD5AB58 /* Pods_CapricornusTests.framework */; };
@@ -83,6 +85,8 @@
 		17771C1124E11FBD00FB2B14 /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		17771C1324E1201400FB2B14 /* UtilFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilFile.swift; sourceTree = "<group>"; };
 		17771C1524E122E300FB2B14 /* UtilAudio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilAudio.swift; sourceTree = "<group>"; };
+		17771C1B24E36B5A00FB2B14 /* Amazon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Amazon.swift; sourceTree = "<group>"; };
+		17771C1D24E3C5A300FB2B14 /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
 		1BC485F1A67AD04FDB62AD7B /* Pods_Capricornus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Capricornus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DD87D1C9296D23F97FA4391 /* Pods-Capricornus-CapricornusUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Capricornus-CapricornusUITests.release.xcconfig"; path = "Target Support Files/Pods-Capricornus-CapricornusUITests/Pods-Capricornus-CapricornusUITests.release.xcconfig"; sourceTree = "<group>"; };
 		1E429000F326A6EE8CD5AB58 /* Pods_CapricornusTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CapricornusTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -173,6 +177,7 @@
 				1737E32F24D93CD000A19E5E /* Assets.xcassets */,
 				1737E33124D93CD000A19E5E /* LaunchScreen.storyboard */,
 				1737E33424D93CD000A19E5E /* Info.plist */,
+				17771C1D24E3C5A300FB2B14 /* awsconfiguration.json */,
 			);
 			path = Capricornus;
 			sourceTree = "<group>";
@@ -229,6 +234,7 @@
 				C36A339924DCDCA100E6ECA5 /* Naver.swift */,
 				C36A339B24DCDCB200E6ECA5 /* Kakao.swift */,
 				C36A339D24DD09C100E6ECA5 /* Google.swift */,
+				17771C1B24E36B5A00FB2B14 /* Amazon.swift */,
 			);
 			path = Platform;
 			sourceTree = "<group>";
@@ -352,6 +358,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17771C1E24E3C5A300FB2B14 /* awsconfiguration.json in Resources */,
 				1737E33324D93CD000A19E5E /* LaunchScreen.storyboard in Resources */,
 				1737E33024D93CD000A19E5E /* Assets.xcassets in Resources */,
 				1737E36724DA982A00A19E5E /* sample.mp3 in Resources */,
@@ -484,6 +491,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1737E36124DA2C9300A19E5E /* APIParameter.swift in Sources */,
+				17771C1C24E36B5A00FB2B14 /* Amazon.swift in Sources */,
 				17771C1624E122E300FB2B14 /* UtilAudio.swift in Sources */,
 				1737E36324DA5E8200A19E5E /* Util.swift in Sources */,
 				17771C1224E11FBD00FB2B14 /* CustomCell.swift in Sources */,

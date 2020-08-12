@@ -20,6 +20,11 @@ target 'Capricornus' do
   # Popup
   pod 'PopupDialog', '~> 1.1'
 
+  # AWS
+  $awsVersion = '~> 2.15.0'
+  pod 'AWSMobileClient', $awsVersion
+  pod 'AWSPolly', $awsVersion
+
   # Google
   pod 'Firebase/Analytics'
 

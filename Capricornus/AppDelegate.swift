@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AWSCore
+import AWSMobileClient
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,6 +17,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        AWSMobileClient.sharedInstance().initialize { (userState, error) in
+            guard error == nil else {
+                print("AWSMobileClient initialization failed. Error: \(error!.localizedDescription)")
+                return
+            }
+            print("AWSMobileClient initialized.")
+        }
+        
         return true
     }
 

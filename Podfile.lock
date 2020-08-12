@@ -1,5 +1,17 @@
 PODS:
   - Alamofire (4.9.1)
+  - AWSAuthCore (2.15.1):
+    - AWSCore (= 2.15.1)
+  - AWSCognitoIdentityProvider (2.15.1):
+    - AWSCognitoIdentityProviderASF (= 1.0.1)
+    - AWSCore (= 2.15.1)
+  - AWSCognitoIdentityProviderASF (1.0.1)
+  - AWSCore (2.15.1)
+  - AWSMobileClient (2.15.1):
+    - AWSAuthCore (= 2.15.1)
+    - AWSCognitoIdentityProvider (= 2.15.1)
+  - AWSPolly (2.15.1):
+    - AWSCore (= 2.15.1)
   - DynamicBlurView (4.1.0)
   - Firebase/Analytics (6.29.0):
     - Firebase/Core
@@ -76,6 +88,8 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 4.7)
+  - AWSMobileClient (~> 2.15.0)
+  - AWSPolly (~> 2.15.0)
   - Firebase/Analytics
   - PopupDialog (~> 1.1)
   - RxCocoa (~> 5)
@@ -85,6 +99,12 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - AWSAuthCore
+    - AWSCognitoIdentityProvider
+    - AWSCognitoIdentityProviderASF
+    - AWSCore
+    - AWSMobileClient
+    - AWSPolly
     - DynamicBlurView
     - Firebase
     - FirebaseAnalytics
@@ -104,6 +124,12 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  AWSAuthCore: d98801d505ea332fd1ec28fbaf3377e0ce02100f
+  AWSCognitoIdentityProvider: 5172f21b3530adbb1549501cd26e126bb211b85c
+  AWSCognitoIdentityProviderASF: f94f1a502e72ef3d0a1de93e10bf7a79c8698118
+  AWSCore: 7dec5eefb9b95739adec68dcb3dba2a6770376a6
+  AWSMobileClient: 23aa8e4a787553742861ea1e3272420a9aaf4938
+  AWSPolly: 6bb6f94b494d4f0ea68bbecba8e22e04e43bcbc6
   DynamicBlurView: 58e18fae80bb614e34681a4486870e7d257b62e8
   Firebase: 57957c8d6eb3d8b80a560b1dc58be24724b89ff2
   FirebaseAnalytics: aa522dce9fd93002ba1554467d23ce7092323000
@@ -121,6 +147,6 @@ SPEC CHECKSUMS:
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 8f26ea7e4b001a9bab6155a7a3a6878b41ae7501
+PODFILE CHECKSUM: 97cbdf7e92e6f49c0acb25c3f8e2658a5ebb6ea6
 
 COCOAPODS: 1.8.4
